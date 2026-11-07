@@ -36,6 +36,7 @@ import {
   requestUpdateBill,
 } from "./createBillRequest";
 import { PaymentForm } from "./PaymentForm";
+import { ScanReceipt } from "./ScanReceipt";
 import {
   BottomBar,
   Card,
@@ -232,7 +233,9 @@ function Wizard({ edit }: { edit?: EditTarget<ItemisedDraft> }) {
         current={t("stepOf", { current: index + 1, total: STEPS.length })}
         title={t(`${step}.title`)}
       />
-      {step === "items" && <ItemsStep draft={draft} patch={patch} />}
+      {step === "items" && (
+        <ItemsStep draft={draft} patch={patch} result={result} />
+      )}
       {step === "charges" && (
         <ChargesStep draft={draft} patch={patch} result={result} />
       )}
@@ -289,8 +292,22 @@ function voucherLabel(
   }
 }
 
-function ItemsStep({ draft, patch }: { draft: ItemisedDraft; patch: Patch }) {
+function ItemsStep({
+  draft,
+  patch,
+  result,
+}: {
+  draft: ItemisedDraft;
+  patch: Patch;
+  result: Result;
+}) {
   const t = useTranslations("wizard.items");
+  const tScan = useTranslations("wizard.scan");
+  const [scanned, setScanned] = useState<{
+    itemsRead: number;
+    linesSkipped: number;
+  } | null>(null);
+  const check = result.receiptCheck;
   const name = draft.pendingDishName;
   const price = draft.pendingDishPrice;
   const [error, setError] = useState<"name" | "price" | null>(null);
@@ -327,6 +344,35 @@ function ItemsStep({ draft, patch }: { draft: ItemisedDraft; patch: Patch }) {
 
   return (
     <>
+      {draft.items.length === 0 && (
+        <ScanReceipt
+          onScanned={({ change, itemsRead, linesSkipped }) => {
+            patch(change);
+            setScanned({ itemsRead, linesSkipped });
+          }}
+        />
+      )}
+      {scanned && (
+        <div
+          role="status"
+          className="flex flex-col gap-1 rounded-xl bg-kaya/30 p-3 text-base text-ink"
+        >
+          <p className="font-extrabold">
+            {tScan("read", { count: scanned.itemsRead })}
+          </p>
+          {scanned.linesSkipped > 0 && (
+            <p>{tScan("skipped", { count: scanned.linesSkipped })}</p>
+          )}
+          {check.status === "differs" && (
+            <p className="font-bold text-chilli">
+              {tScan("mismatch", {
+                ours: formatRinggit(result.totalSen),
+                receipt: formatRinggit(result.totalSen + check.differenceSen),
+              })}
+            </p>
+          )}
+        </div>
+      )}
       <Field
         label={t("restaurant")}
         placeholder={t("restaurantPlaceholder")}

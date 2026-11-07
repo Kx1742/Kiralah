@@ -183,7 +183,27 @@
       "each": "About {amount} each",
       "friendNumber": "Friend {number}"
     },
-    "save": "Save changes"
+    "save": "Save changes",
+    "scan": {
+      "title": "Got the receipt?",
+      "snap": "📷 Snap the receipt",
+      "choose": "Choose a photo",
+      "hint": "Or type the dishes below.",
+      "reading": "Reading your receipt… about 10 seconds.",
+      "read": "We read {count, plural, one {# dish} other {# dishes}}. Check them against the receipt, then tap Next.",
+      "skipped": "{count, plural, one {# line} other {# lines}} couldn't be read. Add them below.",
+      "mismatch": "These come to {ours}, but the receipt says {receipt}. Check the prices, or fix it on the next step.",
+      "errors": {
+        "notReceipt": "That doesn't look like a receipt. Try again, or type the dishes below.",
+        "unreadable": "We couldn't read that photo clearly. Try a sharper photo in good light, or type the dishes below.",
+        "busy": "Receipt reading is busy right now. Try again in a minute, or type the dishes below.",
+        "unavailable": "Receipt reading isn't available right now. Please type the dishes below.",
+        "rateLimited": "Too many scans from this phone this hour. Please type the dishes below.",
+        "limitReached": "We've reached today's limit for reading receipts. Please type the dishes below.",
+        "invalid": "That photo didn't work. Try another one, or type the dishes below.",
+        "generic": "Something went wrong. Check your internet, or type the dishes below."
+      }
+    }
   },
   "bill": {
     "makanAt": "Makan at {place}",

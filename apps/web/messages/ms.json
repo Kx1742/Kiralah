@@ -183,7 +183,27 @@
       "each": "Lebih kurang {amount} seorang",
       "friendNumber": "Kawan {number}"
     },
-    "save": "Simpan perubahan"
+    "save": "Simpan perubahan",
+    "scan": {
+      "title": "Ada resit?",
+      "snap": "📷 Ambil gambar resit",
+      "choose": "Pilih gambar",
+      "hint": "Atau taip hidangan di bawah.",
+      "reading": "Membaca resit anda… lebih kurang 10 saat.",
+      "read": "Kami baca {count} hidangan. Semak dengan resit, kemudian tekan Seterusnya.",
+      "skipped": "{count} baris tak dapat dibaca. Tambah di bawah.",
+      "mismatch": "Jumlahnya {ours}, tetapi resit tulis {receipt}. Semak harga, atau betulkan di langkah seterusnya.",
+      "errors": {
+        "notReceipt": "Itu tak nampak seperti resit. Cuba lagi, atau taip hidangan di bawah.",
+        "unreadable": "Gambar itu kurang jelas. Cuba gambar yang lebih terang dan tajam, atau taip hidangan di bawah.",
+        "busy": "Bacaan resit sedang sibuk. Cuba lagi sebentar lagi, atau taip hidangan di bawah.",
+        "unavailable": "Bacaan resit tiada buat masa ini. Sila taip hidangan di bawah.",
+        "rateLimited": "Terlalu banyak imbasan dari telefon ini dalam sejam. Sila taip hidangan di bawah.",
+        "limitReached": "Had bacaan resit hari ini sudah dicapai. Sila taip hidangan di bawah.",
+        "invalid": "Gambar itu tak boleh digunakan. Cuba gambar lain, atau taip hidangan di bawah.",
+        "generic": "Ada masalah. Semak internet anda, atau taip hidangan di bawah."
+      }
+    }
   },
   "bill": {
     "makanAt": "Makan di {place}",
