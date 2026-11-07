@@ -20,6 +20,33 @@ Nobody signs up. A bill is identified by a 16-character random ID (about 95 bits
 
 When a bill is created, the server makes a secret **edit token** and returns it once. It stays in the payer's browser, and the database holds only its SHA-256 hash, so a leaked database cannot be used to edit bills. The cost: clearing browser data, or switching phones, loses edit access to that bill. For a bill that lives 30 days and is shared once, that is the right trade for having no accounts.
 
+## Friends prove who they are with a token on their phone
+
+"Who are you?" is the only login. When a friend taps a name, the server gives that phone a secret token and stores only its hash. After that:
+
+- **Only that phone** can mark that person as paid. The payer's edit token can mark anyone.
+- **Only the payer** can change dishes, prices, charges, vouchers or payment details. Friends get `403`.
+- **Anyone at the table** can say who had a dish, including adding others to a shared dish. Splitting a sotong three ways needs one person to tick all three, and nobody's money moves without the dish being real.
+- **A name can be picked by only one phone.** The database update is conditional (`WHERE tokenHash IS NULL`), so two phones tapping "Bee" at the same instant cannot both win. If Bee changes phones, the payer taps "Let Bee pick again".
+
+All of this is checked on the server, and the browser tests call the API directly to prove it.
+
+## Polling every 3 seconds instead of WebSockets
+
+While a bill is on screen, each phone asks "anything new?" every 3 seconds. Every change bumps a version number on the bill, which is sent as an `ETag`, so an unchanged bill answers `304` with no body.
+
+- **For polling:** it works on Vercel's free plan, which has no long-lived connections. It survives WhatsApp's in-app browser being paused and resumed, and the phone's network dropping, with no reconnect logic. It stops while the page is hidden.
+- **Against WebSockets:** they would need a separate paid service (Pusher, Ably or similar) and more failure modes, for a page where a few seconds' delay is fine.
+- **The cost:** up to 3 seconds before another phone sees a change, and about one tiny request per 3 seconds per open page. A friend's own taps show instantly (optimistic UI) and are confirmed in the background.
+
+## Editing a saved bill
+
+The payer opens the same steps as when creating it, filled in from the saved bill. Saving keeps friends' picks for dishes that still exist; picks for deleted dishes go with them. Friends who added their own name are never removed by an edit.
+
+## Not built yet
+
+Custom portions such as "Ali had 2 of the 3 teh tarik" work in the money engine, but the screens only split a shared dish equally.
+
 ## Dishes and people are tables; charges and vouchers are JSON
 
 Friends will tap dishes at the same moment. Separate rows let those writes not collide, which one JSON blob for the whole bill could not. Charges, vouchers and adjustments only change with the payer, so they stay as JSON and are validated with Zod every time they are read.
