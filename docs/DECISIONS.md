@@ -21,4 +21,6 @@ A Malaysian kopitiam: the feeling of sitting down at a marble table in a restore
 - **Home is the shopfront:** jade wall, mint louvred shutters, red-striped awning, rattan lamp, encaustic floor, and a marble table with kopi, teh tarik, kaya toast and the bill. **Inner screens are the cream wall** with marble-white cards, because forms need quiet.
 - **Chilli red means the one main action** on a screen. The awning is the only other red, and it is decoration at the screen edge.
 - **Brush font only for the brand and big numbers,** like a hand-painted signboard. Everything else is Nunito, which stays readable on small screens. Chinese uses the phone's system font: a CJK web font would be several megabytes on slow data.
+- **The home table is a real tap demo:** tap the kopi, teh tarik or toast and it shows "You pay Ali RM5.50". People learn the friend flow by trying it, before anyone makes a bill.
+- **The lamp, shutters and cat are toys.** Nothing depends on them, so they are out of the keyboard order and hidden from screen readers, and they never compete with the main action.
 - **Illustrations are inline SVG; the wall and floor are CSS:** no image downloads. Motion stops under `prefers-reduced-motion`.

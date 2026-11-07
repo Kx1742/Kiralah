@@ -9,16 +9,33 @@
     "splitBill": "Split a bill",
     "splitEqually": "Just split equally",
     "promise": "No app. No sign-up. Just a link.",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "demo": {
+      "hint": "Try it: tap what you had",
+      "youPay": "You pay Ali {amount}",
+      "kopi": "Kopi",
+      "teh": "Teh tarik",
+      "toast": "Kaya toast",
+      "meow": "Meow!"
+    }
   },
   "language": {
     "label": "Language",
-    "en": { "short": "EN", "name": "English" },
-    "ms": { "short": "BM", "name": "Bahasa Melayu" },
-    "zh-CN": { "short": "中文", "name": "简体中文" }
+    "en": {
+      "short": "EN",
+      "name": "English"
+    },
+    "ms": {
+      "short": "BM",
+      "name": "Bahasa Melayu"
+    },
+    "zh-CN": {
+      "short": "中文",
+      "name": "简体中文"
+    }
   },
   "notFound": {
-    "title": "Oops, this page drifted away",
+    "title": "Alamak, we can't find this page",
     "body": "The link may be wrong, or the bill was already deleted.",
     "home": "Back to home"
   }

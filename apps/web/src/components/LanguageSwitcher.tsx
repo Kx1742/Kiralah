@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { useOptimistic, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
@@ -11,15 +11,24 @@ export function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  // The pill moves on tap, even if the new language takes a moment on slow data.
+  const [shown, setShown] = useOptimistic<string>(locale);
 
   return (
     <nav
       aria-label={t("label")}
-      className="flex rounded-full bg-marble p-1 shadow-sm"
+      className="relative flex rounded-full bg-marble p-1 shadow-md"
       aria-busy={isPending}
     >
+      <span
+        aria-hidden
+        className="absolute top-1 bottom-1 left-1 w-12 rounded-full bg-jade transition-transform duration-300"
+        style={{
+          transform: `translateX(${routing.locales.findIndex((option) => option === shown) * 100}%)`,
+        }}
+      />
       {routing.locales.map((option) => {
-        const isCurrent = option === locale;
+        const isCurrent = option === shown;
         return (
           <button
             key={option}
@@ -30,12 +39,13 @@ export function LanguageSwitcher() {
             onClick={() => {
               if (isCurrent) return;
               startTransition(() => {
+                setShown(option);
                 router.replace(pathname, { locale: option });
                 router.refresh();
               });
             }}
-            className={`min-h-11 min-w-12 rounded-full px-3 text-sm font-extrabold transition-colors ${
-              isCurrent ? "bg-jade text-white" : "text-ink"
+            className={`relative min-h-11 w-12 rounded-full text-sm font-extrabold transition-colors duration-300 ${
+              isCurrent ? "text-white" : "text-ink"
             }`}
           >
             {t(`${option}.short`)}
