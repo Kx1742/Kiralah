@@ -1,0 +1,42 @@
+{
+  "name": "Someone has not picked yet: your amount stays yours",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Bak kut teh",
+        "quantity": 1,
+        "unitPriceSen": 1000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Yau char kuay",
+        "quantity": 1,
+        "unitPriceSen": 2000,
+        "portions": []
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": true,
+      "serviceChargeBasisPoints": 0,
+      "serviceTaxBasisPoints": 0,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "totalSen": 3000,
+    "shares": { "ali": 1000, "bee": 0 },
+    "unclaimedSen": 2000
+  }
+}

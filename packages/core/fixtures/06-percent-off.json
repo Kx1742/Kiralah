@@ -1,0 +1,66 @@
+{
+  "name": "Member 20% off the whole bill, savings shared",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "seta",
+        "name": "Set A",
+        "quantity": 1,
+        "unitPriceSen": 3590,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "setb",
+        "name": "Set B",
+        "quantity": 1,
+        "unitPriceSen": 2990,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      },
+      {
+        "id": "fries",
+        "name": "Sharing fries",
+        "quantity": 1,
+        "unitPriceSen": 1320,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "member",
+        "label": "Member 20%",
+        "kind": "percentOff",
+        "basisPoints": 2000
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "subtotalSen": 7900,
+    "discountSen": 1580,
+    "serviceChargeSen": 632,
+    "serviceTaxSen": 417,
+    "totalSen": 7369,
+    "shares": { "ali": 3964, "bee": 3405 },
+    "extraSen": { "ali": 0, "bee": 1 },
+    "discounts": [
+      { "discountId": "member", "savedSen": 1580, "status": "applied" }
+    ]
+  }
+}

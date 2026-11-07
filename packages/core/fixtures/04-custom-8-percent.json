@@ -1,0 +1,44 @@
+{
+  "name": "Custom 8% tax with 10% service",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "steak",
+        "name": "Ribeye steak",
+        "quantity": 1,
+        "unitPriceSen": 6800,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "pasta",
+        "name": "Aglio olio",
+        "quantity": 1,
+        "unitPriceSen": 3250,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 800,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "serviceChargeSen": 1005,
+    "serviceTaxSen": 884,
+    "totalSen": 11939,
+    "shares": { "ali": 8078, "bee": 3861 },
+    "extraSen": { "ali": 0, "bee": 1 }
+  }
+}

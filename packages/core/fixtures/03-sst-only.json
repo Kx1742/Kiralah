@@ -1,0 +1,44 @@
+{
+  "name": "SST with no service charge",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "laksa",
+        "name": "Asam laksa",
+        "quantity": 1,
+        "unitPriceSen": 1250,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "ckt",
+        "name": "Char kuey teow",
+        "quantity": 1,
+        "unitPriceSen": 1100,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 0,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "serviceChargeSen": 0,
+    "serviceTaxSen": 141,
+    "totalSen": 2491,
+    "shares": { "ali": 1325, "bee": 1166 },
+    "receiptCheck": { "status": "notProvided" }
+  }
+}

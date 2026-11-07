@@ -1,0 +1,51 @@
+{
+  "name": "RM10 voucher taken off after service charge and tax",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Nasi kandar",
+        "quantity": 1,
+        "unitPriceSen": 3000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Mee goreng",
+        "quantity": 1,
+        "unitPriceSen": 2000,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "v",
+        "label": "RM10 voucher",
+        "kind": "amountOff",
+        "amountSen": 1000
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "afterCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "discountSen": 1000,
+    "serviceChargeSen": 500,
+    "serviceTaxSen": 330,
+    "totalSen": 4830,
+    "shares": { "ali": 2898, "bee": 1932 }
+  }
+}

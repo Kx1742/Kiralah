@@ -1,0 +1,46 @@
+{
+  "name": "Adjustment line for a charge not on the items",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Wantan mee",
+        "quantity": 1,
+        "unitPriceSen": 1000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Claypot chicken",
+        "quantity": 1,
+        "unitPriceSen": 3000,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": true,
+      "serviceChargeBasisPoints": 0,
+      "serviceTaxBasisPoints": 0,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": [
+      { "id": "box", "label": "Takeaway boxes", "amountSen": 40 }
+    ],
+    "receiptTotalSen": 4040
+  },
+  "expected": {
+    "adjustmentSen": 40,
+    "totalSen": 4040,
+    "shares": { "ali": 1010, "bee": 3030 },
+    "receiptCheck": { "status": "matches" }
+  }
+}

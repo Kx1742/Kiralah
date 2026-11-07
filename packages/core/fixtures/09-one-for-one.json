@@ -1,0 +1,60 @@
+{
+  "name": "1-for-1 burgers: only the burger eaters benefit",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" },
+      { "id": "chong", "name": "Chong" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "burger",
+        "name": "Burger",
+        "quantity": 2,
+        "unitPriceSen": 1890,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      },
+      {
+        "id": "fries",
+        "name": "Fries",
+        "quantity": 1,
+        "unitPriceSen": 990,
+        "portions": [{ "personId": "chong", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "promo",
+        "label": "1-for-1 burger",
+        "kind": "itemPromo",
+        "itemId": "burger",
+        "promo": { "type": "oneForOne" }
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "subtotalSen": 4770,
+    "discountSen": 1890,
+    "serviceChargeSen": 288,
+    "serviceTaxSen": 190,
+    "totalSen": 3358,
+    "shares": { "ali": 1102, "bee": 1102, "chong": 1154 },
+    "discounts": [
+      { "discountId": "promo", "savedSen": 1890, "status": "applied" }
+    ]
+  }
+}

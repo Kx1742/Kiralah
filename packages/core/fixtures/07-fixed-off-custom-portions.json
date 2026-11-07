@@ -1,0 +1,60 @@
+{
+  "name": "RM10 off with RM50 minimum spend, pizza split 2 to 1",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "pizza",
+        "name": "Pizza",
+        "quantity": 1,
+        "unitPriceSen": 4200,
+        "portions": [
+          { "personId": "ali", "portions": 2 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      },
+      {
+        "id": "salad",
+        "name": "Salad",
+        "quantity": 1,
+        "unitPriceSen": 1800,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "rm10",
+        "label": "RM10 voucher",
+        "kind": "amountOff",
+        "amountSen": 1000,
+        "minSpendSen": 5000
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "subtotalSen": 6000,
+    "discountSen": 1000,
+    "serviceChargeSen": 500,
+    "serviceTaxSen": 330,
+    "totalSen": 5830,
+    "shares": { "ali": 2721, "bee": 3109 },
+    "extraSen": { "ali": 1, "bee": 0 },
+    "discounts": [
+      { "discountId": "rm10", "savedSen": 1000, "status": "applied" }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Cash rounding on: total and shares in 5 sen",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": true,
+    "items": [
+      {
+        "id": "a",
+        "name": "Tom yam",
+        "quantity": 1,
+        "unitPriceSen": 1530,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Pad thai",
+        "quantity": 1,
+        "unitPriceSen": 2000,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": [],
+    "receiptTotalSen": 4115
+  },
+  "expected": {
+    "cashRoundingSen": -1,
+    "totalSen": 4115,
+    "shares": { "ali": 1785, "bee": 2330 },
+    "extraSen": { "ali": 5, "bee": 0 },
+    "receiptCheck": { "status": "matches" }
+  }
+}

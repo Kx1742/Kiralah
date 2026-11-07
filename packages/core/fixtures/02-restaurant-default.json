@@ -1,0 +1,70 @@
+{
+  "name": "Restaurant with 10% service and 6% SST, shared dishes",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" },
+      { "id": "chong", "name": "Chong" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "chicken",
+        "name": "Butter chicken",
+        "quantity": 1,
+        "unitPriceSen": 2890,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "rice",
+        "name": "Nasi goreng",
+        "quantity": 1,
+        "unitPriceSen": 1590,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      },
+      {
+        "id": "sotong",
+        "name": "Sotong goreng",
+        "quantity": 1,
+        "unitPriceSen": 2490,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 },
+          { "personId": "chong", "portions": 1 }
+        ]
+      },
+      {
+        "id": "tea",
+        "name": "Ice lemon tea",
+        "quantity": 3,
+        "unitPriceSen": 450,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 },
+          { "personId": "chong", "portions": 1 }
+        ]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": [],
+    "receiptTotalSen": 9701
+  },
+  "expected": {
+    "subtotalSen": 8320,
+    "serviceChargeSen": 832,
+    "serviceTaxSen": 549,
+    "totalSen": 9701,
+    "shares": { "ali": 4862, "bee": 3346, "chong": 1493 },
+    "extraSen": { "ali": 0, "bee": 0, "chong": 1 },
+    "receiptCheck": { "status": "matches" }
+  }
+}

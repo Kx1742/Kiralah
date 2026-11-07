@@ -1,0 +1,52 @@
+{
+  "name": "Voucher worth more than its owner ate: the owner pays nothing and the rest helps others",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Grilled fish",
+        "quantity": 1,
+        "unitPriceSen": 4000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Cendol",
+        "quantity": 1,
+        "unitPriceSen": 800,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "v",
+        "label": "Bee's RM20 voucher",
+        "kind": "amountOff",
+        "amountSen": 2000,
+        "keptByPersonId": "bee"
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "discountSen": 2000,
+    "serviceChargeSen": 280,
+    "serviceTaxSen": 185,
+    "totalSen": 3265,
+    "shares": { "ali": 3265, "bee": 0 }
+  }
+}

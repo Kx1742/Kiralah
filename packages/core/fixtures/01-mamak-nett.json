@@ -1,0 +1,63 @@
+{
+  "name": "Mamak with nett prices: no service charge, no tax",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "roti",
+        "name": "Roti canai",
+        "quantity": 1,
+        "unitPriceSen": 180,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "teh",
+        "name": "Teh tarik",
+        "quantity": 2,
+        "unitPriceSen": 250,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      },
+      {
+        "id": "nasi",
+        "name": "Nasi lemak",
+        "quantity": 1,
+        "unitPriceSen": 650,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      },
+      {
+        "id": "milo",
+        "name": "Milo ais",
+        "quantity": 1,
+        "unitPriceSen": 320,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": true,
+      "serviceChargeBasisPoints": 0,
+      "serviceTaxBasisPoints": 0,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": [],
+    "receiptTotalSen": 1650
+  },
+  "expected": {
+    "subtotalSen": 1650,
+    "serviceChargeSen": 0,
+    "serviceTaxSen": 0,
+    "totalSen": 1650,
+    "shares": { "ali": 430, "bee": 1220 },
+    "receiptCheck": { "status": "matches" }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "RM15 voucher kept by its owner",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Lamb chop",
+        "quantity": 1,
+        "unitPriceSen": 3000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Fish and chips",
+        "quantity": 1,
+        "unitPriceSen": 2500,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "v",
+        "label": "Bee's voucher",
+        "kind": "amountOff",
+        "amountSen": 1500,
+        "keptByPersonId": "bee"
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "discountSen": 1500,
+    "serviceChargeSen": 400,
+    "serviceTaxSen": 264,
+    "totalSen": 4664,
+    "shares": { "ali": 3498, "bee": 1166 }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Voucher minimum spend not met: no discount",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Chicken rice",
+        "quantity": 1,
+        "unitPriceSen": 2000,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Fish head curry",
+        "quantity": 1,
+        "unitPriceSen": 4000,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [
+      {
+        "id": "rm10",
+        "label": "RM10 voucher",
+        "kind": "amountOff",
+        "amountSen": 1000,
+        "minSpendSen": 10000
+      }
+    ],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "discountSen": 0,
+    "serviceChargeSen": 600,
+    "serviceTaxSen": 396,
+    "totalSen": 6996,
+    "shares": { "ali": 2332, "bee": 4664 },
+    "discounts": [
+      { "discountId": "rm10", "savedSen": 0, "status": "minSpendNotMet" }
+    ]
+  }
+}

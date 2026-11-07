@@ -1,0 +1,19 @@
+{
+  "name": "Just split equally: RM100 among three",
+  "bill": {
+    "mode": "equal",
+    "payerId": "bee",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" },
+      { "id": "chong", "name": "Chong" }
+    ],
+    "cashRounding": false,
+    "totalSen": 10000
+  },
+  "expected": {
+    "totalSen": 10000,
+    "shares": { "ali": 3333, "bee": 3334, "chong": 3333 },
+    "extraSen": { "ali": 0, "bee": 1, "chong": 0 }
+  }
+}

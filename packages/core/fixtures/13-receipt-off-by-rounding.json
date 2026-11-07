@@ -1,0 +1,50 @@
+{
+  "name": "Receipt 1 sen lower than calculated: cash rounding would fix it",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "ali",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "a",
+        "name": "Tom yam",
+        "quantity": 1,
+        "unitPriceSen": 1530,
+        "portions": [{ "personId": "ali", "portions": 1 }]
+      },
+      {
+        "id": "b",
+        "name": "Pad thai",
+        "quantity": 1,
+        "unitPriceSen": 2000,
+        "portions": [{ "personId": "bee", "portions": 1 }]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": true,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": [],
+    "receiptTotalSen": 4115
+  },
+  "expected": {
+    "serviceChargeSen": 353,
+    "serviceTaxSen": 233,
+    "totalSen": 4116,
+    "shares": { "ali": 1784, "bee": 2332 },
+    "extraSen": { "ali": 1, "bee": 0 },
+    "receiptCheck": {
+      "status": "differs",
+      "differenceSen": -1,
+      "cashRoundingWouldFix": true
+    }
+  }
+}

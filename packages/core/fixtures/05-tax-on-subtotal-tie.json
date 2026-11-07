@@ -1,0 +1,51 @@
+{
+  "name": "Tax on subtotal only, and a tie: the payer takes the extra sen",
+  "bill": {
+    "mode": "itemised",
+    "payerId": "bee",
+    "people": [
+      { "id": "ali", "name": "Ali" },
+      { "id": "bee", "name": "Bee" }
+    ],
+    "cashRounding": false,
+    "items": [
+      {
+        "id": "dimsum",
+        "name": "Dim sum platter",
+        "quantity": 1,
+        "unitPriceSen": 4580,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      },
+      {
+        "id": "tea",
+        "name": "Pot of tea",
+        "quantity": 1,
+        "unitPriceSen": 800,
+        "portions": [
+          { "personId": "ali", "portions": 1 },
+          { "personId": "bee", "portions": 1 }
+        ]
+      }
+    ],
+    "discounts": [],
+    "charges": {
+      "pricesIncludeCharges": false,
+      "serviceChargeBasisPoints": 1000,
+      "serviceTaxBasisPoints": 600,
+      "taxOnServiceCharge": false,
+      "discountTiming": "beforeCharges"
+    },
+    "adjustments": []
+  },
+  "expected": {
+    "subtotalSen": 5380,
+    "serviceChargeSen": 538,
+    "serviceTaxSen": 323,
+    "totalSen": 6241,
+    "shares": { "ali": 3120, "bee": 3121 },
+    "extraSen": { "ali": 0, "bee": 1 }
+  }
+}
