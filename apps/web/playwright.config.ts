@@ -25,7 +25,10 @@ export default defineConfig({
   webServer: {
     command: `pnpm build && pnpm start --port ${port}`,
     port,
-    env: { BILL_CREATE_HOURLY_LIMIT: "100000" },
+    env: {
+      BILL_CREATE_HOURLY_LIMIT: "100000",
+      CRON_SECRET: "test-cron-secret",
+    },
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

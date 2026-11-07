@@ -222,6 +222,14 @@ test("the server enforces who may change what", async ({ request }) => {
   expect((await reset(editToken)).status()).toBe(204);
   expect((await join(request, id, { personId: "bee" })).status).toBe(201);
 
+  // Only the payer can delete the bill.
+  const chong = await join(request, id, { personId: "chong" });
+  expect(
+    (
+      await request.delete(`/api/bills/${id}`, { headers: auth(chong.token!) })
+    ).status(),
+  ).toBe(403);
+
   // Polling costs almost nothing when nothing changed.
   const state = await request.get(`/api/bills/${id}`);
   const etag = state.headers()["etag"]!;
