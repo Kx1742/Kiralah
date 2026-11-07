@@ -14,11 +14,11 @@ test("fits a 360px phone with no sideways scroll", async ({ page }) => {
 
 test("shows both main buttons without scrolling", async ({ page }) => {
   await page.goto("/");
+  await expect(page.getByRole("link", { name: "Split a bill" })).toBeInViewport(
+    { ratio: 1 },
+  );
   await expect(
-    page.getByRole("button", { name: /Split a bill/ }),
-  ).toBeInViewport({ ratio: 1 });
-  await expect(
-    page.getByRole("button", { name: /Just split equally/ }),
+    page.getByRole("link", { name: "Just split equally" }),
   ).toBeInViewport({
     ratio: 1,
   });
