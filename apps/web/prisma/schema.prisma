@@ -11,6 +11,8 @@ model Bill {
   id              String   @id
   /// SHA-256 of the payer's edit token. The token itself is only on their device.
   editTokenHash   String
+  /// Goes up on every change, so phones can ask "anything new?" cheaply.
+  version         Int      @default(0)
   locale          String
   restaurantName  String?
   mode            String
@@ -38,11 +40,17 @@ model Bill {
 }
 
 model Person {
-  billId   String
-  id       String
-  name     String
-  position Int
-  bill     Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+  billId      String
+  id          String
+  name        String
+  position    Int
+  /// A "Friend 2" slot in an equal split, waiting for someone to take it.
+  placeholder Boolean   @default(false)
+  /// SHA-256 of the token on the phone that picked this name. Null until someone does.
+  tokenHash   String?
+  paidAt      DateTime?
+  bill        Bill      @relation(fields: [billId], references: [id], onDelete: Cascade)
+  claims      Claim[]
 
   @@id([billId, id])
 }
@@ -54,9 +62,22 @@ model Item {
   quantity     Int
   unitPriceSen Int
   position     Int
-  bill         Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+  bill         Bill    @relation(fields: [billId], references: [id], onDelete: Cascade)
+  claims       Claim[]
 
   @@id([billId, id])
+}
+
+/// One row per person who had an item. Separate rows, so friends tapping at once never collide.
+model Claim {
+  billId   String
+  itemId   String
+  personId String
+  portions Int    @default(1)
+  item     Item   @relation(fields: [billId, itemId], references: [billId, id], onDelete: Cascade)
+  person   Person @relation(fields: [billId, personId], references: [billId, id], onDelete: Cascade)
+
+  @@id([billId, itemId, personId])
 }
 
 /// Counts requests per hashed IP per hour. Holds no IP addresses.
