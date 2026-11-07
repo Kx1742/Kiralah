@@ -16,9 +16,9 @@ The connection is made lazily on first query, so `next build` never needs a data
 
 ## Design system
 
-Taken from two references: a deep watercolour sea with brush lettering and playful sea creatures, and a pale paper page with layered flat waves, a flat ship and white rounded cards.
+A Malaysian kopitiam: the feeling of sitting down at a marble table in a restored Peranakan shophouse. It says "makan" at first glance, and it feels local.
 
-- **Home** is the sea. **Inner screens** are pale paper (`foam`) with waves and white cards, because forms need quiet.
-- **Coral means the one main action** on a screen. Nothing else uses it.
-- **Brush font only for the brand and big numbers.** Everything else is Nunito, which stays readable on small screens. Chinese uses the phone's system font: a CJK web font would be several megabytes on slow data.
-- **Illustrations are inline SVG and the sea is CSS gradients**: no image downloads. Motion stops under `prefers-reduced-motion`.
+- **Home is the shopfront:** jade wall, mint louvred shutters, red-striped awning, rattan lamp, encaustic floor, and a marble table with kopi, teh tarik, kaya toast and the bill. **Inner screens are the cream wall** with marble-white cards, because forms need quiet.
+- **Chilli red means the one main action** on a screen. The awning is the only other red, and it is decoration at the screen edge.
+- **Brush font only for the brand and big numbers,** like a hand-painted signboard. Everything else is Nunito, which stays readable on small screens. Chinese uses the phone's system font: a CJK web font would be several megabytes on slow data.
+- **Illustrations are inline SVG; the wall and floor are CSS:** no image downloads. Motion stops under `prefers-reduced-motion`.

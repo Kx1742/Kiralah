@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
 /*
- * Ocean design system.
- * Home is the deep watercolour sea; inner screens are pale paper with layered
- * waves and white rounded cards. Coral is reserved for the one main action.
+ * Kopitiam design system.
+ * Home is the shopfront: jade wall, striped awning, marble table, patterned
+ * floor. Inner screens are the cream wall with marble-white cards.
+ * Chilli red is reserved for the one main action.
  */
 @theme {
-  --color-abyss: #0a2463;
-  --color-ocean: #1548a8;
-  --color-lagoon: #2f7ed8;
-  --color-sky: #a9d0f2;
-  --color-foam: #eef3f7;
-  --color-ink: #0f2b52;
-  --color-ink-soft: #46597a;
-  --color-coral: #c8401a;
-  --color-coral-deep: #a93412;
-  --color-seafoam: #8fd8c9;
-  --color-kelp: #4c9a4f;
-  --color-lilac: #a48be6;
-  --color-sand: #f2b872;
+  --color-jade: #0e5a4a;
+  --color-jade-deep: #0a4437;
+  --color-mint: #a7dcc6;
+  --color-cream: #f8f1e3;
+  --color-marble: #fffdf8;
+  --color-ink: #2b1d14;
+  --color-ink-soft: #5f4d3f;
+  --color-chilli: #b3301c;
+  --color-terracotta: #c4693f;
+  --color-wood: #8a5a33;
+  --color-kaya: #e3b23c;
 
   --font-sans:
     var(--font-nunito), "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei",
@@ -26,68 +25,47 @@
   --font-brush: var(--font-caveat-brush), var(--font-sans);
 
   --radius-card: 1.75rem;
-  --shadow-float: 0 6px 0 0 rgb(10 36 99 / 0.18);
+  --shadow-float: 0 5px 0 0 rgb(43 29 20 / 0.2);
 
-  --animate-bob: bob 5s ease-in-out infinite;
-  --animate-drift: drift 7s ease-in-out infinite;
+  --animate-steam: steam 4s ease-in-out infinite;
 
-  @keyframes bob {
+  @keyframes steam {
     0%,
     100% {
-      transform: translateY(0) rotate(-1.5deg);
+      opacity: 0.35;
+      transform: translateY(0);
     }
     50% {
-      transform: translateY(-5px) rotate(1.5deg);
-    }
-  }
-
-  @keyframes drift {
-    0%,
-    100% {
-      transform: translate(0, 0);
-    }
-    50% {
-      transform: translate(6px, -8px);
+      opacity: 0.85;
+      transform: translateY(-3px);
     }
   }
 }
 
 body {
-  background: var(--color-foam);
+  background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Hand-painted sea: stacked soft gradients, no image download on slow data. */
-.watercolour-sea {
+/* Jade wall with a warm pool of lamp light. CSS only: no image on slow data. */
+.kopitiam-wall {
   background:
     radial-gradient(
-      60% 40% at 15% 12%,
-      rgb(47 126 216 / 0.45),
+      70% 45% at 50% 32%,
+      rgb(255 233 168 / 0.16),
       transparent 70%
     ),
-    radial-gradient(50% 35% at 90% 30%, rgb(10 36 99 / 0.55), transparent 70%),
-    radial-gradient(
-      70% 30% at 60% 85%,
-      rgb(47 126 216 / 0.35),
-      transparent 70%
-    ),
-    var(--color-ocean);
+    var(--color-jade);
 }
 
-.watercolour-bubble {
-  background:
-    radial-gradient(
-      45% 40% at 30% 28%,
-      rgb(255 255 255 / 0.14),
-      transparent 70%
-    ),
-    radial-gradient(55% 50% at 72% 70%, rgb(10 36 99 / 0.35), transparent 75%),
-    rgb(47 126 216 / 0.28);
-  box-shadow:
-    inset 0 0 0 3px rgb(169 208 242 / 0.28),
-    inset 0 0 40px rgb(164 139 230 / 0.25);
+/* Encaustic floor tile, inlined so it never needs a download. */
+.tile-floor {
+  background-color: var(--color-cream);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%23c4693f' d='M0 0h10L0 10Zm40 0v10L30 0ZM0 40V30l10 10Zm40 0H30l10-10Z'/%3E%3Cpath fill='%230e5a4a' d='M20 3l17 17-17 17L3 20Z'/%3E%3Cpath fill='%23f8f1e3' d='M20 10l10 10-10 10-10-10Z'/%3E%3Ccircle cx='20' cy='20' r='4' fill='%23b3301c'/%3E%3C/svg%3E");
+  background-size: 2rem 2rem;
+  border-top: 4px solid var(--color-wood);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,13 +2,12 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import {
-  Boat,
-  Bottle,
-  Fish,
-  Jellyfish,
-  Seaweed,
-  Starfish,
-  Waves,
+  Awning,
+  Chair,
+  Lamp,
+  Plant,
+  Shutter,
+  TableScene,
 } from "@/components/illustrations";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
@@ -22,42 +21,41 @@ export default function HomePage({ params }: Props) {
   const t = useTranslations();
 
   return (
-    <main className="watercolour-sea relative flex min-h-dvh flex-col overflow-hidden">
-      <div className="relative z-20 flex justify-end p-4">
-        <LanguageSwitcher />
-      </div>
+    <main className="flex min-h-dvh flex-col overflow-hidden">
+      <section className="kopitiam-wall relative flex flex-1 flex-col">
+        <Awning className="relative z-10 h-9 w-full drop-shadow-md" />
+        <Lamp className="absolute top-6 left-8 w-10 sm:left-[24%] sm:w-14" />
+        <Shutter className="absolute top-24 -left-1 w-9 sm:left-[8%] sm:w-28" />
+        <Shutter className="absolute top-24 -right-1 w-9 -scale-x-100 sm:right-[8%] sm:w-28" />
 
-      <section className="relative flex flex-1 items-center justify-center px-4 pb-16">
-        <div className="watercolour-bubble absolute top-1/2 left-1/2 aspect-square w-[min(118vw,36rem)] -translate-x-1/2 -translate-y-[56%] rounded-full" />
-        <Jellyfish className="absolute top-0 left-2 w-11 animate-drift sm:left-[12%] sm:w-24" />
-        <Starfish className="absolute right-8 bottom-16 w-7 opacity-70 sm:right-[20%]" />
-        <Fish className="absolute top-8 right-3 w-14 animate-drift [animation-delay:-3s] sm:right-[14%] sm:w-20" />
-        <Fish className="absolute top-0 right-24 w-8 sm:top-20 sm:right-[22%] sm:w-9" />
+        <div className="relative z-20 flex justify-end px-3 pt-2">
+          <LanguageSwitcher />
+        </div>
 
-        <div className="relative z-10 max-w-md text-center text-white">
-          <h1 className="font-brush text-[5.25rem] leading-none tracking-wide sm:text-[7.5rem]">
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-10 py-2 text-center">
+          <h1 className="rounded-2xl border-4 border-kaya bg-jade-deep px-5 pt-1 pb-2 font-brush text-[3.75rem] leading-none tracking-wide text-cream shadow-float sm:text-8xl">
             {t("brand")}
           </h1>
-          <p className="mt-3 text-xl leading-snug font-extrabold text-balance sm:text-2xl">
+          <p className="mt-3 max-w-md text-lg leading-snug font-extrabold text-balance text-cream sm:text-2xl">
             {t("home.tagline")}
           </p>
         </div>
+
+        <div className="relative z-10 -mb-5 flex items-end justify-center">
+          <Chair className="absolute bottom-3 left-0 w-11 sm:left-[18%] sm:w-20" />
+          <TableScene className="w-60 sm:w-96" />
+          <Plant className="absolute right-0 bottom-3 w-12 sm:right-[18%] sm:w-24" />
+        </div>
       </section>
 
-      <Seaweed className="absolute bottom-40 -left-3 z-0 w-20 sm:w-28" />
-      <Bottle className="absolute right-1 bottom-48 z-0 w-12 rotate-12 sm:right-[8%] sm:w-16" />
+      <div aria-hidden className="tile-floor h-9 shrink-0" />
 
-      <div className="relative z-10 -mb-px">
-        <Boat className="absolute -top-10 left-1/2 w-36 -translate-x-1/2 animate-bob sm:-top-11 sm:w-48" />
-        <Waves className="relative block h-16 w-full sm:h-24" />
-      </div>
-
-      <section className="relative z-10 bg-foam px-4 pt-2 pb-6">
+      <section className="px-4 pt-5 pb-5">
         <div className="mx-auto flex w-full max-w-md flex-col gap-3">
           <button
             type="button"
             disabled
-            className="flex min-h-16 w-full items-center justify-between gap-3 rounded-full bg-coral px-7 text-left text-xl font-extrabold text-white shadow-float"
+            className="flex min-h-15 w-full items-center justify-between gap-3 rounded-full bg-chilli px-7 text-left text-xl font-extrabold text-white shadow-float"
           >
             {t("home.splitBill")}
             <span className="shrink-0 text-xs font-bold">
@@ -67,7 +65,7 @@ export default function HomePage({ params }: Props) {
           <button
             type="button"
             disabled
-            className="flex min-h-16 w-full items-center justify-between gap-3 rounded-full bg-white px-7 text-left text-xl font-extrabold text-ink shadow-float ring-2 ring-sky"
+            className="flex min-h-15 w-full items-center justify-between gap-3 rounded-full bg-marble px-7 text-left text-xl font-extrabold text-ink shadow-float ring-2 ring-jade"
           >
             {t("home.splitEqually")}
             <span className="shrink-0 text-xs font-bold text-ink-soft">

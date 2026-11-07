@@ -25,7 +25,7 @@ type Props = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1548a8",
+  themeColor: "#0e5a4a",
 };
 
 export function generateStaticParams() {

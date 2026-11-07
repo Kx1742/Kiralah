@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
   return (
     <nav
       aria-label={t("label")}
-      className="flex rounded-full bg-white/95 p-1 shadow-sm"
+      className="flex rounded-full bg-marble p-1 shadow-sm"
       aria-busy={isPending}
     >
       {routing.locales.map((option) => {
@@ -35,7 +35,7 @@ export function LanguageSwitcher() {
               });
             }}
             className={`min-h-11 min-w-12 rounded-full px-3 text-sm font-extrabold transition-colors ${
-              isCurrent ? "bg-ocean text-white" : "text-ink"
+              isCurrent ? "bg-jade text-white" : "text-ink"
             }`}
           >
             {t(`${option}.short`)}

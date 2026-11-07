@@ -1,147 +1,189 @@
-/* Flat, hand-drawn sea creatures. Decorative only, so hidden from screen readers. */
+/* Flat kopitiam drawings. Decorative only, so hidden from screen readers. */
 
 type Props = { className?: string };
 
 const svgProps = { "aria-hidden": true, focusable: false } as const;
 
-export function Waves({ className }: Props) {
+const louvers = (top: number, count: number) =>
+  Array.from({ length: count }, (_, i) => `M8 ${top + i * 8}h54`).join("");
+
+export function Awning({ className }: Props) {
   return (
-    <svg
-      {...svgProps}
-      className={className}
-      viewBox="0 0 800 120"
-      preserveAspectRatio="none"
-    >
-      <path
-        fill="#a9d0f2"
-        d="M0 46C90 18 170 20 262 44s170 26 268 2 180-26 270 2v72H0Z"
-      />
-      <path
-        fill="#6fb0ea"
-        d="M0 72c110-30 190-22 290 2s190 16 290-8 150-14 220 6v48H0Z"
-      />
-      <path
-        fill="#eef3f7"
-        d="M0 98c120-24 220-14 330 2s210 8 300-6 120-6 170 4v22H0Z"
-      />
+    <svg {...svgProps} className={className}>
+      <defs>
+        <pattern
+          id="awning-stripes"
+          width="56"
+          height="36"
+          patternUnits="userSpaceOnUse"
+        >
+          <path fill="#b3301c" d="M0 0h28v24a14 12 0 0 1-28 0Z" />
+          <path fill="#f8f1e3" d="M28 0h28v24a14 12 0 0 1-28 0Z" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#awning-stripes)" />
     </svg>
   );
 }
 
-export function Boat({ className }: Props) {
+export function Lamp({ className }: Props) {
   return (
-    <svg {...svgProps} className={className} viewBox="0 0 200 92">
-      <path fill="#c8401a" d="M86 6h20l4 26H82Z" />
-      <path fill="#0f2b52" d="M86 6h20l1 7H85Z" />
-      <path fill="#dcebf3" d="M46 32h110l10 24H34Z" />
-      <path fill="#2f7ed8" d="M50 40h100v5H50Z" />
-      <path fill="#f2b872" d="M62 50h20v8H62Zm30 0h20v8H92Zm30 0h20v8h-20Z" />
-      <path fill="#0f2b52" d="M6 56h188l-22 34H26Z" />
-      <circle cx="44" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="62" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="80" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="98" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="116" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="134" cy="70" r="3" fill="#8fd8c9" />
-      <circle cx="152" cy="70" r="3" fill="#8fd8c9" />
+    <svg {...svgProps} className={className} viewBox="0 0 60 92">
+      <path stroke="#2b1d14" strokeWidth="2" d="M30 0v42" />
+      <ellipse cx="30" cy="76" rx="13" ry="6" fill="#ffe9a8" />
+      <path fill="#c99a5b" d="M6 74c0-20 11-34 24-34s24 14 24 34Z" />
+      <path
+        fill="none"
+        stroke="#8a5a33"
+        strokeWidth="1.5"
+        d="M30 40v34M19 44c-4 8-5 20-5 30M41 44c4 8 5 20 5 30M12 56h36M8 66h44"
+      />
+      <ellipse cx="30" cy="74" rx="24" ry="3.5" fill="#8a5a33" />
     </svg>
   );
 }
 
-export function Jellyfish({ className }: Props) {
+export function Shutter({ className }: Props) {
   return (
-    <svg {...svgProps} className={className} viewBox="0 0 80 120">
-      <path
-        fill="#a48be6"
-        d="M10 42C10 18 24 6 40 6s30 12 30 36c-10 6-50 6-60 0Z"
-      />
-      <path
-        fill="none"
-        stroke="#d9cdf8"
-        strokeWidth="2"
-        strokeLinecap="round"
-        d="M22 16v14m10-20v18m10-18v18m10-14v14"
-      />
+    <svg {...svgProps} className={className} viewBox="0 0 70 220">
+      <rect width="70" height="220" rx="4" fill="#6fbb9f" />
+      <rect x="8" y="8" width="54" height="96" fill="#a7dcc6" />
+      <rect x="8" y="116" width="54" height="96" fill="#a7dcc6" />
       <path
         fill="none"
-        stroke="#a9d0f2"
-        strokeWidth="4"
-        strokeLinecap="round"
-        d="M20 48c-6 16 6 22 0 38s4 18 0 28M34 50c-4 18 6 24 2 40M48 50c4 16-6 26 0 44M60 48c6 14-6 22 0 36"
-      />
-      <path
-        fill="none"
-        stroke="#8fd8c9"
-        strokeWidth="3"
-        strokeLinecap="round"
-        d="M27 50c-2 12 3 18 0 30m26-30c2 12-3 22 1 32"
-      />
-    </svg>
-  );
-}
-
-export function Fish({ className }: Props) {
-  return (
-    <svg {...svgProps} className={className} viewBox="0 0 80 36">
-      <path fill="#8fd8c9" d="M4 18C16 4 42 2 60 18 42 34 16 32 4 18Z" />
-      <path fill="#4c9a4f" d="m58 18 18-13-4 13 4 13Z" />
-      <path
-        fill="none"
-        stroke="#2f7ed8"
+        stroke="#6fbb9f"
         strokeWidth="2.5"
-        d="M28 8c5 6 5 14 0 20m11-19c4 6 4 12 0 18"
+        d={`${louvers(16, 11)}${louvers(124, 11)}`}
       />
-      <circle cx="16" cy="16" r="2.5" fill="#0f2b52" />
     </svg>
   );
 }
 
-export function Starfish({ className }: Props) {
+export function Chair({ className }: Props) {
   return (
-    <svg {...svgProps} className={className} viewBox="0 0 48 48">
+    <svg {...svgProps} className={className} viewBox="0 0 60 110">
       <path
         fill="none"
-        stroke="#ffffff"
+        stroke="#5b3a1e"
+        strokeWidth="5"
+        strokeLinecap="round"
+        d="M14 62V20C14 8 46 8 46 20v42M23 16v46M37 16v46M14 62l-6 46M46 62l6 46"
+      />
+      <ellipse cx="30" cy="62" rx="24" ry="6" fill="#c99a5b" />
+    </svg>
+  );
+}
+
+export function Plant({ className }: Props) {
+  return (
+    <svg {...svgProps} className={className} viewBox="0 0 70 110">
+      <path fill="#2f8f5b" d="M34 72C18 62 6 44 8 18c16 10 28 30 28 54Z" />
+      <path fill="#57b37a" d="M36 72c14-10 26-26 26-50-16 8-28 26-26 50Z" />
+      <path fill="#3fa36b" d="M35 72C28 50 28 24 36 2c8 22 8 48-1 70Z" />
+      <path fill="#c4693f" d="M14 70h42l-6 40H20Z" />
+      <rect x="11" y="66" width="48" height="9" rx="2" fill="#a9532e" />
+    </svg>
+  );
+}
+
+/* Marble table with kopi, teh tarik, kaya toast and the bill to split. */
+export function TableScene({ className }: Props) {
+  return (
+    <svg {...svgProps} className={className} viewBox="0 0 320 150">
+      <rect x="152" y="84" width="16" height="56" fill="#2b1d14" />
+      <ellipse cx="160" cy="143" rx="46" ry="7" fill="#2b1d14" />
+      <ellipse cx="160" cy="78" rx="152" ry="20" fill="#8a5a33" />
+      <ellipse cx="160" cy="72" rx="152" ry="20" fill="#fffdf8" />
+      <path
+        fill="none"
+        stroke="#d9d3c7"
+        strokeWidth="1.5"
+        d="M30 74c30 8 50-2 80 6M190 84c30-6 40 2 70-6M130 62c20 6 30-2 50 2"
+      />
+
+      <g
+        className="animate-steam"
+        fill="none"
+        stroke="#f8f1e3"
         strokeWidth="3"
-        strokeLinejoin="round"
-        d="m24 4 5 14 15 1-12 9 5 15-13-9-13 9 5-15L4 19l15-1Z"
+        strokeLinecap="round"
+      >
+        <path d="M60 28c-5-6 5-11 0-18M78 28c-5-6 5-11 0-18" />
+      </g>
+      <ellipse
+        cx="69"
+        cy="72"
+        rx="33"
+        ry="8"
+        fill="#ffffff"
+        stroke="#0e5a4a"
+        strokeWidth="2"
       />
-    </svg>
-  );
-}
-
-export function Seaweed({ className }: Props) {
-  return (
-    <svg {...svgProps} className={className} viewBox="0 0 90 170">
       <path
-        fill="#4c9a4f"
-        d="M20 170C4 140 28 124 14 96S20 44 34 26c8 28-8 42 4 68s-2 50 8 76Z"
+        fill="none"
+        stroke="#0e5a4a"
+        strokeWidth="4"
+        d="M92 44c12-2 14 14-4 18"
       />
-      <path
-        fill="#6fbf6d"
-        d="M48 170c-12-24 14-38 4-62s6-38 18-52c6 22-6 34 2 56s-4 38 2 58Z"
-      />
-    </svg>
-  );
-}
-
-/* A message in a bottle: the link you share with friends. */
-export function Bottle({ className }: Props) {
-  return (
-    <svg {...svgProps} className={className} viewBox="0 0 60 120">
-      <rect x="22" y="2" width="16" height="14" rx="4" fill="#f2b872" />
       <path
         fill="#ffffff"
-        fillOpacity=".35"
-        d="M22 16h16v14c0 8 14 12 14 26v50c0 7-5 12-12 12H20c-7 0-12-5-12-12V56c0-14 14-18 14-26Z"
+        stroke="#0e5a4a"
+        strokeWidth="2"
+        d="M46 36h46l-5 30a6 6 0 0 1-6 5H57a6 6 0 0 1-6-5Z"
       />
-      <path fill="#ffffff" d="M18 58h24v44H18z" transform="rotate(8 30 80)" />
+      <path fill="#0e5a4a" d="M47.5 46h43l-1 6h-41Z" />
+      <ellipse cx="69" cy="36" rx="23" ry="4.5" fill="#3a2212" />
+
       <path
-        stroke="#1548a8"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        d="m23 68 15 2m-16 8 15 2m-16 8 10 1.5"
+        fill="#c98b4f"
+        d="M122 14h34l-5 58a4 4 0 0 1-4 4h-16a4 4 0 0 1-4-4Z"
       />
+      <path fill="#f5e6cf" d="M122 14h34l-1 13h-32Z" />
+      <path fill="#ffffff" fillOpacity=".4" d="M128 30h5l2 40h-4Z" />
+
+      <ellipse
+        cx="207"
+        cy="74"
+        rx="38"
+        ry="8"
+        fill="#ffffff"
+        stroke="#d9d3c7"
+        strokeWidth="2"
+      />
+      <path
+        fill="#d99a4e"
+        stroke="#8a5a33"
+        strokeWidth="2"
+        d="M178 70l26-34 26 34Z"
+      />
+      <path fill="#b58a2a" d="M186 70l18-24 18 24Z" />
+      <path
+        fill="#e8b36a"
+        stroke="#8a5a33"
+        strokeWidth="2"
+        d="M186 74l24-30 24 30Z"
+      />
+
+      <g transform="rotate(8 275 50)">
+        <path
+          fill="#ffffff"
+          stroke="#d9d3c7"
+          strokeWidth="1.5"
+          d="M258 22l4 4 4-4 4 4 4-4 4 4 4-4 4 4 4-4 4 4v54h-34Z"
+        />
+        <path
+          stroke="#5f4d3f"
+          strokeWidth="2"
+          strokeLinecap="round"
+          d="M264 36h14m4 0h4M264 45h14m4 0h4M264 54h14m4 0h4"
+        />
+        <path
+          stroke="#b3301c"
+          strokeWidth="3"
+          strokeLinecap="round"
+          d="M264 66h22"
+        />
+      </g>
     </svg>
   );
 }
