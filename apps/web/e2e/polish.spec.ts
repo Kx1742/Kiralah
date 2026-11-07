@@ -105,3 +105,37 @@ test("the daily cleanup only runs with the cron secret", async ({
     rateLimits: expect.any(Number),
   });
 });
+
+test("the stats page shows totals and nothing personal", async ({
+  page,
+  request,
+}) => {
+  await request.post("/api/bills", {
+    data: {
+      locale: "en",
+      restaurantName: "Secret Restaurant",
+      payment: {},
+      bill: {
+        mode: "equal",
+        payerId: "payer",
+        people: [
+          { id: "payer", name: "Zainab" },
+          { id: "friend-2", name: "Friend 2" },
+        ],
+        cashRounding: false,
+        totalSen: 5000,
+      },
+    },
+  });
+  await page.goto("/stats");
+  await expect(
+    page.getByRole("heading", { name: "SplitLah in numbers" }),
+  ).toBeVisible();
+  await expect(page.getByText("Bills split").first()).toBeVisible();
+  const text = await page.locator("main").innerText();
+  expect(text).not.toContain("Zainab");
+  expect(text).not.toContain("Secret Restaurant");
+  const { violations } = await new AxeBuilder({ page }).analyze();
+  expect(violations).toEqual([]);
+  await noSidewaysScroll(page);
+});

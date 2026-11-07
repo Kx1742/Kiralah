@@ -307,5 +307,15 @@
   },
   "offline": {
     "banner": "You're offline. Your work is saved on this phone, and we'll catch up when you're back."
+  },
+  "stats": {
+    "title": "SplitLah in numbers",
+    "last30Days": "Last 30 days",
+    "allTime": "All time",
+    "bills": "Bills split",
+    "people": "People",
+    "averagePeople": "People per bill",
+    "ringgitSplit": "Ringgit split",
+    "privacy": "Counts only. No names, dishes or links are kept here, and these totals stay after bills are deleted."
   }
 }

@@ -1,4 +1,9 @@
-import { billSchema, chargesSchema, discountSchema } from "@splitlah/core";
+import {
+  billSchema,
+  calculateBill,
+  chargesSchema,
+  discountSchema,
+} from "@splitlah/core";
 import { z } from "zod";
 import type { Prisma } from "@/generated/prisma/client";
 import { ActionError } from "./actionError";
@@ -9,6 +14,7 @@ import {
 } from "./billInput";
 import { getDb } from "./db";
 import type { SavedBill } from "./savedBill";
+import { recordBill } from "./stats";
 import { hashEditToken, isBillId, newBillId, newEditToken } from "./tokens";
 
 export type { SavedBill } from "./savedBill";
@@ -52,43 +58,50 @@ export async function createBill(input: CreateBillInput) {
   const id = newBillId();
   const editToken = newEditToken();
 
-  await getDb().bill.create({
-    data: {
-      id,
-      editTokenHash: hashEditToken(editToken),
-      locale,
-      restaurantName: restaurantName ?? null,
-      mode: bill.mode,
-      payerId: bill.payerId,
-      cashRounding: bill.cashRounding,
-      ...paymentColumns(payment),
-      paymentQr: qr?.bytes ?? null,
-      paymentQrType: qr?.type ?? null,
-      expiresAt: new Date(Date.now() + BILL_LIFETIME_MS),
-      people: {
-        create: bill.people.map((person, position) => ({
-          ...person,
-          position,
-          placeholder: bill.mode === "equal" && person.id !== bill.payerId,
-        })),
+  // The bill and the day's totals are saved together, so the counts never drift.
+  await getDb().$transaction(async (tx) => {
+    await tx.bill.create({
+      data: {
+        id,
+        editTokenHash: hashEditToken(editToken),
+        locale,
+        restaurantName: restaurantName ?? null,
+        mode: bill.mode,
+        payerId: bill.payerId,
+        cashRounding: bill.cashRounding,
+        ...paymentColumns(payment),
+        paymentQr: qr?.bytes ?? null,
+        paymentQrType: qr?.type ?? null,
+        expiresAt: new Date(Date.now() + BILL_LIFETIME_MS),
+        people: {
+          create: bill.people.map((person, position) => ({
+            ...person,
+            position,
+            placeholder: bill.mode === "equal" && person.id !== bill.payerId,
+          })),
+        },
+        ...(bill.mode === "equal"
+          ? { equalTotalSen: bill.totalSen }
+          : {
+              ...itemisedColumns(bill),
+              items: {
+                create: bill.items.map(
+                  ({ id: itemId, name, quantity, unitPriceSen }, position) => ({
+                    id: itemId,
+                    name,
+                    quantity,
+                    unitPriceSen,
+                    position,
+                  }),
+                ),
+              },
+            }),
       },
-      ...(bill.mode === "equal"
-        ? { equalTotalSen: bill.totalSen }
-        : {
-            ...itemisedColumns(bill),
-            items: {
-              create: bill.items.map(
-                ({ id: itemId, name, quantity, unitPriceSen }, position) => ({
-                  id: itemId,
-                  name,
-                  quantity,
-                  unitPriceSen,
-                  position,
-                }),
-              ),
-            },
-          }),
-    },
+    });
+    await recordBill(tx, {
+      people: bill.people.length,
+      totalSen: calculateBill(bill).totalSen,
+    });
   });
 
   return { id, editToken };

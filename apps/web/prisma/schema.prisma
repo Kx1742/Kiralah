@@ -80,6 +80,15 @@ model Claim {
   @@id([billId, itemId, personId])
 }
 
+/// Usage totals per day (Malaysia time). Counts only: no names, dishes, amounts per person or links,
+/// so they outlive the bills themselves.
+model DailyStat {
+  day          DateTime @id @db.Date
+  billsCreated Int      @default(0)
+  people       Int      @default(0)
+  senSplit     BigInt   @default(0)
+}
+
 /// Counts requests per hashed IP per hour. Holds no IP addresses.
 model RateLimit {
   key       String   @id

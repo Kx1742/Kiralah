@@ -307,5 +307,15 @@
   },
   "offline": {
     "banner": "Anda di luar talian. Kerja anda disimpan di telefon ini, dan akan dikemas kini apabila talian kembali."
+  },
+  "stats": {
+    "title": "SplitLah dalam angka",
+    "last30Days": "30 hari lepas",
+    "allTime": "Sepanjang masa",
+    "bills": "Bil dibahagi",
+    "people": "Orang",
+    "averagePeople": "Orang setiap bil",
+    "ringgitSplit": "Ringgit dibahagi",
+    "privacy": "Kiraan sahaja. Tiada nama, hidangan atau pautan disimpan di sini, dan jumlah ini kekal selepas bil dipadam."
   }
 }

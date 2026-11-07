@@ -307,5 +307,15 @@
   },
   "offline": {
     "banner": "你目前处于离线状态。内容已保存在这部手机上，恢复连接后会自动更新。"
+  },
+  "stats": {
+    "title": "SplitLah 数据",
+    "last30Days": "最近 30 天",
+    "allTime": "全部",
+    "bills": "分摊的账单",
+    "people": "人数",
+    "averagePeople": "每张账单人数",
+    "ringgitSplit": "分摊金额",
+    "privacy": "这里只有统计数字，不保存任何名字、菜品或链接；账单删除后这些总数依然保留。"
   }
 }
