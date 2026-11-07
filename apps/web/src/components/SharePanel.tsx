@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { copyText } from "@/lib/copy";
 import { shareToWhatsApp } from "@/lib/share";
 import { Card, PrimaryButton, SecondaryButton } from "./ui";
 
@@ -27,7 +28,7 @@ export function SharePanel({
       </PrimaryButton>
       <SecondaryButton
         onClick={() => {
-          void navigator.clipboard?.writeText(url).then(() => setCopied(true));
+          void copyText(url).then(setCopied);
         }}
       >
         {copied ? t("copied") : t("copyLink")}

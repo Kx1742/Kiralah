@@ -8,7 +8,8 @@ import {
 } from "@splitlah/core";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { copyText } from "@/lib/copy";
 import { sendBillChange } from "@/lib/billClient";
 import { claimKey, hasClaims, withClaimOverrides } from "@/lib/claims";
 import type { SavedBill } from "@/lib/savedBill";
@@ -47,7 +48,7 @@ export function BillLive({ initial }: { initial: SavedBill }) {
   const t = useTranslations("live");
   const tBill = useTranslations("bill");
   const isClient = useIsClient();
-  const { saved, refresh, offline } = useLiveBill(initial);
+  const { saved, refresh, offline, gone } = useLiveBill(initial);
   const editToken = useStored<string>(STORAGE_KEYS.editToken(saved.id));
   const storedPerson = useStored<StoredPerson>(STORAGE_KEYS.person(saved.id));
 
@@ -58,6 +59,22 @@ export function BillLive({ initial }: { initial: SavedBill }) {
     {},
   );
   const [failed, setFailed] = useState(false);
+
+  if (gone) {
+    return (
+      <Screen>
+        <Card>
+          <p className="text-xl font-extrabold text-jade">{t("deleted")}</p>
+          <Link
+            href="/"
+            className="font-extrabold text-jade underline underline-offset-2"
+          >
+            {t("backHome")}
+          </Link>
+        </Card>
+      </Screen>
+    );
+  }
 
   const { payerId } = saved.bill;
   const isPayer = isClient && editToken !== null;
@@ -185,6 +202,7 @@ export function BillLive({ initial }: { initial: SavedBill }) {
           >
             {t("editBill")}
           </Link>
+          <DeleteBill billId={saved.id} token={token} />
         </>
       )}
 
@@ -204,7 +222,8 @@ export function BillLive({ initial }: { initial: SavedBill }) {
         />
       )}
 
-      <BillDetails saved={saved} bill={bill} result={result} />
+      {/* Shown with the rest once the phone knows who is looking, so nothing jumps down the page. */}
+      {isClient && <BillDetails saved={saved} bill={bill} result={result} />}
     </Screen>
   );
 }
@@ -354,7 +373,7 @@ function DishList({
                   className={`grid size-8 shrink-0 place-items-center rounded-lg border-2 text-lg font-extrabold ${
                     mine
                       ? "border-jade bg-jade text-white"
-                      : "border-ink-soft/50 bg-white text-transparent"
+                      : "border-ink-soft/50 bg-field text-transparent"
                   }`}
                 >
                   {"✓"}
@@ -398,7 +417,7 @@ function DishList({
                         aria-pressed={had}
                         onClick={() => onSetClaim(item.id, person.id, !had)}
                         className={`min-h-11 cursor-pointer rounded-full px-4 text-sm font-extrabold ring-2 ring-jade ${
-                          had ? "bg-jade text-white" : "bg-white text-ink"
+                          had ? "bg-jade text-white" : "bg-field text-ink"
                         }`}
                       >
                         {person.id === me ? t("you") : person.name}
@@ -530,7 +549,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
       type="button"
       aria-label={label}
       onClick={() => {
-        void navigator.clipboard?.writeText(text).then(() => setCopied(true));
+        void copyText(text).then(setCopied);
       }}
       className="min-h-11 shrink-0 cursor-pointer rounded-full bg-jade px-4 text-sm font-extrabold text-white"
     >
@@ -826,5 +845,51 @@ function BillDetails({
         </ul>
       </More>
     </Card>
+  );
+}
+
+/** Deleting takes a second tap, because it removes the bill for everyone. */
+function DeleteBill({
+  billId,
+  token,
+}: {
+  billId: string;
+  token: string | null;
+}) {
+  const t = useTranslations("live");
+  const router = useRouter();
+  const [confirming, setConfirming] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  async function remove() {
+    if (!confirming) {
+      setConfirming(true);
+      return;
+    }
+    const outcome = await sendBillChange(
+      `/api/bills/${billId}`,
+      "DELETE",
+      {},
+      token,
+    );
+    if (!outcome.ok) {
+      setFailed(true);
+      return;
+    }
+    removeStored(STORAGE_KEYS.editToken(billId));
+    router.push("/");
+  }
+
+  return (
+    <div className="flex flex-col items-center">
+      <TextButton onClick={() => void remove()}>
+        {confirming ? t("deleteConfirm") : t("deleteBill")}
+      </TextButton>
+      {failed && (
+        <p role="alert" className="text-sm font-bold text-chilli">
+          {t("failed")}
+        </p>
+      )}
+    </div>
   );
 }

@@ -139,6 +139,8 @@ function Wizard({ edit }: { edit?: EditTarget<ItemisedDraft> }) {
   })();
 
   const index = STEPS.indexOf(step);
+  const quietNext =
+    step === "items" && validItems === 0 && draft.pendingDishName.trim() === "";
 
   async function create() {
     setCreating(true);
@@ -215,15 +217,19 @@ function Wizard({ edit }: { edit?: EditTarget<ItemisedDraft> }) {
                 </SecondaryButton>
               </div>
             )}
-            <PrimaryButton onClick={next} disabled={creating}>
-              {step === "pay"
-                ? creating
-                  ? t("creating")
-                  : edit
-                    ? t("save")
-                    : t("create")
-                : t("next")}
-            </PrimaryButton>
+            {quietNext ? (
+              <SecondaryButton onClick={next}>{t("next")}</SecondaryButton>
+            ) : (
+              <PrimaryButton onClick={next} disabled={creating}>
+                {step === "pay"
+                  ? creating
+                    ? t("creating")
+                    : edit
+                      ? t("save")
+                      : t("create")
+                  : t("next")}
+              </PrimaryButton>
+            )}
           </div>
         </BottomBar>
       }
