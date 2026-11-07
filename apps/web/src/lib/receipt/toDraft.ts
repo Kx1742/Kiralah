@@ -1,4 +1,4 @@
-import { parsePercent, parseRinggit } from "@splitlah/core";
+import { parsePercent, parseRinggit } from "@kiralah/core";
 import {
   basisPointsToText,
   type ItemisedDraft,

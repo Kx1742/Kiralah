@@ -2,18 +2,18 @@ services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: splitlah
-      POSTGRES_PASSWORD: splitlah
-      POSTGRES_DB: splitlah
+      POSTGRES_USER: kiralah
+      POSTGRES_PASSWORD: kiralah
+      POSTGRES_DB: kiralah
     ports:
       - "5432:5432"
     volumes:
-      - splitlah-db:/var/lib/postgresql/data
+      - kiralah-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U splitlah"]
+      test: ["CMD-SHELL", "pg_isready -U kiralah"]
       interval: 5s
       timeout: 3s
       retries: 10
 
 volumes:
-  splitlah-db:
+  kiralah-db:

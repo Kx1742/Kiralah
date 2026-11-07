@@ -1,4 +1,4 @@
-import type { Bill } from "@splitlah/core";
+import type { Bill } from "@kiralah/core";
 import { describe, expect, it } from "vitest";
 import { claimKey, hasClaims, withClaimOverrides } from "./claims";
 import { itemisedBill } from "./testBills";

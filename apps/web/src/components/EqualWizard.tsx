@@ -1,6 +1,6 @@
 "use client";
 
-import { calculateBill, formatRinggit, parseRinggit } from "@splitlah/core";
+import { calculateBill, formatRinggit, parseRinggit } from "@kiralah/core";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "@/i18n/navigation";

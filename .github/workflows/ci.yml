@@ -31,19 +31,19 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: splitlah
-          POSTGRES_PASSWORD: splitlah
-          POSTGRES_DB: splitlah
+          POSTGRES_USER: kiralah
+          POSTGRES_PASSWORD: kiralah
+          POSTGRES_DB: kiralah
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U splitlah"
+          --health-cmd "pg_isready -U kiralah"
           --health-interval 5s
           --health-timeout 3s
           --health-retries 10
     env:
-      DATABASE_URL: postgresql://splitlah:splitlah@localhost:5432/splitlah
-      DIRECT_URL: postgresql://splitlah:splitlah@localhost:5432/splitlah
+      DATABASE_URL: postgresql://kiralah:kiralah@localhost:5432/kiralah
+      DIRECT_URL: postgresql://kiralah:kiralah@localhost:5432/kiralah
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -53,5 +53,5 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm db:deploy
-      - run: pnpm --filter @splitlah/web exec playwright install --with-deps chromium
+      - run: pnpm --filter @kiralah/web exec playwright install --with-deps chromium
       - run: pnpm test:e2e

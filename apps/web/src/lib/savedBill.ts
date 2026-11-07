@@ -1,4 +1,4 @@
-import type { Bill } from "@splitlah/core";
+import type { Bill } from "@kiralah/core";
 
 /** Everything anyone with the link may see. Never contains token hashes. */
 export type SavedBill = {

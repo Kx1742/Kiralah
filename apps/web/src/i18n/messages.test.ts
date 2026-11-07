@@ -1,4 +1,4 @@
-import { BREAKDOWN_KEYS } from "@splitlah/core";
+import { BREAKDOWN_KEYS } from "@kiralah/core";
 import { describe, expect, it } from "vitest";
 import en from "../../messages/en.json";
 import ms from "../../messages/ms.json";

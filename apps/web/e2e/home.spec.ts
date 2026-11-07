@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 test("fits a 360px phone with no sideways scroll", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "SplitLah" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "KiraLah" })).toBeVisible();
   const overflow = await page.evaluate(
     () =>
       document.documentElement.scrollWidth -

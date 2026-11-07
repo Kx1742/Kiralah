@@ -2,7 +2,7 @@ import { useSyncExternalStore } from "react";
 
 /* Browser storage can be empty or blocked (private mode, in-app browsers): never let it break a screen. */
 
-const CHANGED = "splitlah-storage";
+const CHANGED = "kiralah-storage";
 
 export function readStored<T>(key: string): T | null {
   try {
@@ -62,13 +62,13 @@ export function useStored<T>(key: string): T | null {
 }
 
 export const STORAGE_KEYS = {
-  itemisedDraft: "splitlah:draft:itemised",
-  equalDraft: "splitlah:draft:equal",
-  editDraft: (billId: string) => `splitlah:edit:${billId}`,
-  payer: "splitlah:payer",
-  editToken: (billId: string) => `splitlah:bill:${billId}`,
+  itemisedDraft: "kiralah:draft:itemised",
+  equalDraft: "kiralah:draft:equal",
+  editDraft: (billId: string) => `kiralah:edit:${billId}`,
+  payer: "kiralah:payer",
+  editToken: (billId: string) => `kiralah:bill:${billId}`,
   /** Which name this phone picked on a bill, and the token that proves it. */
-  person: (billId: string) => `splitlah:person:${billId}`,
+  person: (billId: string) => `kiralah:person:${billId}`,
 };
 
 export type StoredPerson = { personId: string; token: string };

@@ -1,4 +1,4 @@
-import type { Bill } from "@splitlah/core";
+import type { Bill } from "@kiralah/core";
 
 export const claimKey = (itemId: string, personId: string) =>
   `${itemId} ${personId}`;

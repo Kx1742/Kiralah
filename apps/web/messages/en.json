@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "SplitLah — split makan bills fairly",
+    "title": "KiraLah — split makan bills fairly",
     "description": "Split makan bills fairly, straight from WhatsApp. No app, no sign-up, just a link."
   },
-  "brand": "SplitLah",
+  "brand": "KiraLah",
   "home": {
     "tagline": "Split makan bills fairly, straight from WhatsApp",
     "splitBill": "Split a bill",
@@ -238,7 +238,7 @@
     "taken": "Someone already picked this name on another phone. Ask {payer} to let you pick again.",
     "full": "Everyone is already here. Ask {payer} to add you.",
     "failed": "That didn't save. Check your internet and try again.",
-    "offline": "Can't reach SplitLah right now. Showing the last update.",
+    "offline": "Can't reach KiraLah right now. Showing the last update.",
     "hello": "Hi {name}!",
     "notYou": "Not you?",
     "whatDidYouHave": "What did you have?",
@@ -309,7 +309,7 @@
     "banner": "You're offline. Your work is saved on this phone, and we'll catch up when you're back."
   },
   "stats": {
-    "title": "SplitLah in numbers",
+    "title": "KiraLah in numbers",
     "last30Days": "Last 30 days",
     "allTime": "All time",
     "bills": "Bills split",

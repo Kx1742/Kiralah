@@ -1,4 +1,4 @@
-import { calculateBill, formatRinggit } from "@splitlah/core";
+import { calculateBill, formatRinggit } from "@kiralah/core";
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -44,7 +44,7 @@ export async function GET(
     routing.locales.find((option) => option === saved.locale) ??
     routing.defaultLocale;
   const t = await getTranslations({ locale, namespace: "bill" });
-  const brand = "SplitLah";
+  const brand = "KiraLah";
   const title = saved.restaurantName
     ? t("makanAt", { place: saved.restaurantName })
     : t("makanBill");

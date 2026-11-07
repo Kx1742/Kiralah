@@ -1,6 +1,6 @@
-// SplitLah service worker: only shows a friendly page when a page can't load offline.
+// KiraLah service worker: only shows a friendly page when a page can't load offline.
 // It never caches bills, so nobody sees stale amounts.
-const CACHE = "splitlah-offline-v1";
+const CACHE = "kiralah-offline-v1";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", (event) => {

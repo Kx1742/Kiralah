@@ -3,7 +3,7 @@ export type Display = {
   text: "normal" | "large";
 };
 
-export const DISPLAY_KEY = "splitlah:display";
+export const DISPLAY_KEY = "kiralah:display";
 export const DEFAULT_DISPLAY: Display = { theme: "system", text: "normal" };
 
 /** Runs before the page paints, so a dark or large-text page never flashes light or small. */

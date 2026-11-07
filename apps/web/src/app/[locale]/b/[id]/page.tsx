@@ -1,4 +1,4 @@
-import { calculateBill, formatRinggit } from "@splitlah/core";
+import { calculateBill, formatRinggit } from "@kiralah/core";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       type: "website",
-      siteName: "SplitLah",
+      siteName: "KiraLah",
       images: [{ url: `/api/og/${id}`, width: 1200, height: 630, alt: title }],
     },
     twitter: { card: "summary_large_image", title, description },

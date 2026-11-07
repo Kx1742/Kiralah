@@ -1,4 +1,4 @@
-import { type Bill, DEFAULT_CHARGES } from "@splitlah/core";
+import { type Bill, DEFAULT_CHARGES } from "@kiralah/core";
 
 export const itemisedBill = {
   mode: "itemised",

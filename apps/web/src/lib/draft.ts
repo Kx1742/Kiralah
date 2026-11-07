@@ -6,7 +6,7 @@ import {
   type Discount,
   parsePercent,
   parseRinggit,
-} from "@splitlah/core";
+} from "@kiralah/core";
 
 export const PAYER_ID = "payer";
 

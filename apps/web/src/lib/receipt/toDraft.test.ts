@@ -1,4 +1,4 @@
-import { calculateBill } from "@splitlah/core";
+import { calculateBill } from "@kiralah/core";
 import { describe, expect, it } from "vitest";
 import { emptyItemisedDraft, itemisedDraftToBill } from "../draft";
 import type { ScannedReceipt } from "./schema";

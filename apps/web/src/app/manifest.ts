@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "SplitLah",
-    short_name: "SplitLah",
+    name: "KiraLah",
+    short_name: "KiraLah",
     description: "Split makan bills fairly, straight from WhatsApp.",
     start_url: "/",
     display: "standalone",

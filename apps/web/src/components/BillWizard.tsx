@@ -5,7 +5,7 @@ import {
   formatRinggit,
   parsePercent,
   parseRinggit,
-} from "@splitlah/core";
+} from "@kiralah/core";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "@/i18n/navigation";

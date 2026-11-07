@@ -78,7 +78,7 @@ async function payerPhone(
   });
   await context.addInitScript(
     ([billId, token]) => {
-      localStorage.setItem(`splitlah:bill:${billId}`, JSON.stringify(token));
+      localStorage.setItem(`kiralah:bill:${billId}`, JSON.stringify(token));
       Object.defineProperty(navigator, "share", {
         value: undefined,
         configurable: true,
@@ -303,7 +303,7 @@ test("the payer edits a price and friends see the new amount", async ({
   });
   await page.addInitScript(
     ([billId, stored]) =>
-      localStorage.setItem(`splitlah:person:${billId}`, stored),
+      localStorage.setItem(`kiralah:person:${billId}`, stored),
     [id, JSON.stringify({ personId: "bee", token: bee.token })] as const,
   );
   await page.goto(`/b/${id}`);

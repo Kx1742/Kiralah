@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const repoRoot = path.join(import.meta.dirname, "../..");
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@splitlah/core"],
+  transpilePackages: ["@kiralah/core"],
   outputFileTracingRoot: repoRoot,
   turbopack: { root: repoRoot },
 };

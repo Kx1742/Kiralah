@@ -1,10 +1,10 @@
 # Usability test kit
 
-Two things only real people on real phones can check: whether a stranger can use SplitLah without help, and whether it works inside WhatsApp. Run both after deploying, and before Phase 6. The README's "Usability testing findings" section is filled from this.
+Two things only real people on real phones can check: whether a stranger can use KiraLah without help, and whether it works inside WhatsApp. Run both after deploying, and before Phase 6. The README's "Usability testing findings" section is filled from this.
 
 ## 1. Three friends, no explanation
 
-**Who:** 3 friends who have never seen SplitLah. At least one on an older or cheaper Android phone, and at least one on an iPhone. Mix of English, Malay and Chinese speakers if you can.
+**Who:** 3 friends who have never seen KiraLah. At least one on an older or cheaper Android phone, and at least one on an iPhone. Mix of English, Malay and Chinese speakers if you can.
 
 **Setup (you, beforehand):** make a real bill from a recent meal (receipt scan or typed), with each friend's name on it. Don't show them anything.
 

@@ -1,4 +1,4 @@
-# SplitLah 🍛
+# KiraLah 🍛
 
 **Split makan bills fairly, straight from WhatsApp.** No app, no sign-up, just a link.
 

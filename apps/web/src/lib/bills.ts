@@ -3,7 +3,7 @@ import {
   calculateBill,
   chargesSchema,
   discountSchema,
-} from "@splitlah/core";
+} from "@kiralah/core";
 import { z } from "zod";
 import type { Prisma } from "@/generated/prisma/client";
 import { ActionError } from "./actionError";

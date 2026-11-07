@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "SplitLah — 公平分摊饭钱",
+    "title": "KiraLah — 公平分摊饭钱",
     "description": "直接在 WhatsApp 上公平分摊饭钱。无需下载，无需注册，一个链接就够了。"
   },
-  "brand": "SplitLah",
+  "brand": "KiraLah",
   "home": {
     "tagline": "直接在 WhatsApp 上公平分摊饭钱",
     "splitBill": "分摊账单",
@@ -238,7 +238,7 @@
     "taken": "已经有人在另一部手机上选了这个名字。请让 {payer} 允许你重新选择。",
     "full": "人数已满。请让 {payer} 把你加进来。",
     "failed": "保存失败。请检查网络后再试。",
-    "offline": "暂时连不上 SplitLah，显示的是最后一次更新。",
+    "offline": "暂时连不上 KiraLah，显示的是最后一次更新。",
     "hello": "你好，{name}！",
     "notYou": "不是你？",
     "whatDidYouHave": "你吃了什么？",
@@ -309,7 +309,7 @@
     "banner": "你目前处于离线状态。内容已保存在这部手机上，恢复连接后会自动更新。"
   },
   "stats": {
-    "title": "SplitLah 数据",
+    "title": "KiraLah 数据",
     "last30Days": "最近 30 天",
     "allTime": "全部",
     "bills": "分摊的账单",

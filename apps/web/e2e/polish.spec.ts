@@ -35,7 +35,7 @@ test("large text fits a 360px phone with no sideways scroll", async ({
 }) => {
   await page.addInitScript(() =>
     localStorage.setItem(
-      "splitlah:display",
+      "kiralah:display",
       JSON.stringify({ theme: "system", text: "large" }),
     ),
   );
@@ -129,7 +129,7 @@ test("the stats page shows totals and nothing personal", async ({
   });
   await page.goto("/stats");
   await expect(
-    page.getByRole("heading", { name: "SplitLah in numbers" }),
+    page.getByRole("heading", { name: "KiraLah in numbers" }),
   ).toBeVisible();
   await expect(page.getByText("Bills split").first()).toBeVisible();
   const text = await page.locator("main").innerText();

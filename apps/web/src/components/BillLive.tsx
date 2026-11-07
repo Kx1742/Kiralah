@@ -5,7 +5,7 @@ import {
   calculateBill,
   formatRinggit,
   type Share,
-} from "@splitlah/core";
+} from "@kiralah/core";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";

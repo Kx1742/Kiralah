@@ -1,6 +1,6 @@
 # Decisions
 
-Why SplitLah is built the way it is. Newest thinking wins; update this file when a decision changes.
+Why KiraLah is built the way it is. Newest thinking wins; update this file when a decision changes.
 
 ## Node 24 LTS
 

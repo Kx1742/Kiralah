@@ -2,13 +2,13 @@
 
 Everything here needs your own accounts, so it is done by you. Allow about an hour. All services used have free plans.
 
-## 0. Settle the name
+## 0. Check the name
 
-There is already an iPhone app called **SplitLah** ([App Store](https://apps.apple.com/us/app/splitlah/id6758514741), 2026, "Scan. Split. Sorted."). Launching under the same name invites confusion. Before buying a domain:
+The app is called **KiraLah** ("kira" means count or work out). It was first called SplitLah, but an iPhone app with that name already exists ([App Store](https://apps.apple.com/us/app/splitlah/id6758514741), 2026). Web searches in November 2026 found no app called KiraLah. Before buying a domain, confirm it properly:
 
-- Search the App Store, Google Play, GitHub and a domain registrar for your chosen name.
-- Searches in November 2026 found no app called **BayarBalik** or **KiraLah**, though a Malaysian bill-splitting app called **Bayar** exists.
-- Renaming is small: the `brand` message in `apps/web/messages/*.json`, `apps/web/src/app/manifest.ts`, the icons (`SL`), the link-preview image (`apps/web/src/app/api/og`), and this documentation.
+- Search Malaysia's trademark register at MyIPO.
+- Search the App Store and Google Play.
+- Check that the domain you want (for example `kiralah.app` or `kiralah.my`) is available.
 
 ## 1. Fix commit authorship, then push to GitHub
 

@@ -1,5 +1,5 @@
 {
-  "name": "splitlah",
+  "name": "kiralah",
   "private": true,
   "version": "0.0.0",
   "license": "MIT",
@@ -8,17 +8,17 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "pnpm --filter @splitlah/web dev",
-    "build": "pnpm --filter @splitlah/web build",
+    "dev": "pnpm --filter @kiralah/web dev",
+    "build": "pnpm --filter @kiralah/web build",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "eval": "pnpm --filter @splitlah/web eval",
-    "test:e2e": "pnpm --filter @splitlah/web test:e2e",
-    "db:migrate": "pnpm --filter @splitlah/web db:migrate",
-    "db:deploy": "pnpm --filter @splitlah/web db:deploy",
+    "eval": "pnpm --filter @kiralah/web eval",
+    "test:e2e": "pnpm --filter @kiralah/web test:e2e",
+    "db:migrate": "pnpm --filter @kiralah/web db:migrate",
+    "db:deploy": "pnpm --filter @kiralah/web db:deploy",
     "prepare": "husky"
   },
   "lint-staged": {

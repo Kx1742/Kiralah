@@ -70,7 +70,7 @@ export function Screen({
 }
 
 function Brand() {
-  return "SplitLah";
+  return "KiraLah";
 }
 
 /** Keeps the one main action under the thumb. */

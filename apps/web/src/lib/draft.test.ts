@@ -1,4 +1,4 @@
-import { billSchema, calculateBill } from "@splitlah/core";
+import { billSchema, calculateBill } from "@kiralah/core";
 import { describe, expect, it } from "vitest";
 import {
   basisPointsToText,

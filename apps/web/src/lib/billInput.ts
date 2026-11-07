@@ -1,4 +1,4 @@
-import { billSchema } from "@splitlah/core";
+import { billSchema } from "@kiralah/core";
 import { z } from "zod";
 import { routing } from "@/i18n/routing";
 

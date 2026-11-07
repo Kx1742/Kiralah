@@ -1,4 +1,4 @@
-import { formatRinggit } from "@splitlah/core";
+import { formatRinggit } from "@kiralah/core";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, Screen } from "@/components/ui";
 import type { Locale } from "@/i18n/routing";

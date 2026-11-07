@@ -1,6 +1,6 @@
 "use client";
 
-import { formatRinggit, sumSen } from "@splitlah/core";
+import { formatRinggit, sumSen } from "@kiralah/core";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {

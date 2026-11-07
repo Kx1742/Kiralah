@@ -1,4 +1,4 @@
-import type { Bill } from "@splitlah/core";
+import type { Bill } from "@kiralah/core";
 import type { PaymentDraft } from "@/lib/draft";
 import { STORAGE_KEYS, writeStored } from "@/lib/storage";
 

@@ -1,4 +1,4 @@
-import { parseRinggit } from "@splitlah/core";
+import { parseRinggit } from "@kiralah/core";
 import type { ScannedReceipt } from "./schema";
 
 /** A hand-checked answer for one receipt in evals/. Amounts as printed. */

@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "SplitLah — bahagi bil makan dengan adil",
+    "title": "KiraLah — bahagi bil makan dengan adil",
     "description": "Bahagi bil makan dengan adil, terus dari WhatsApp. Tak perlu app, tak perlu daftar, cuma satu pautan."
   },
-  "brand": "SplitLah",
+  "brand": "KiraLah",
   "home": {
     "tagline": "Bahagi bil makan dengan adil, terus dari WhatsApp",
     "splitBill": "Bahagi bil",
@@ -238,7 +238,7 @@
     "taken": "Seseorang sudah pilih nama ini di telefon lain. Minta {payer} benarkan anda pilih semula.",
     "full": "Semua orang sudah ada. Minta {payer} tambah anda.",
     "failed": "Tak dapat simpan. Semak internet dan cuba lagi.",
-    "offline": "Tak dapat sambung ke SplitLah sekarang. Menunjukkan kemas kini terakhir.",
+    "offline": "Tak dapat sambung ke KiraLah sekarang. Menunjukkan kemas kini terakhir.",
     "hello": "Hai {name}!",
     "notYou": "Bukan anda?",
     "whatDidYouHave": "Apa yang anda makan?",
@@ -309,7 +309,7 @@
     "banner": "Anda di luar talian. Kerja anda disimpan di telefon ini, dan akan dikemas kini apabila talian kembali."
   },
   "stats": {
-    "title": "SplitLah dalam angka",
+    "title": "KiraLah dalam angka",
     "last30Days": "30 hari lepas",
     "allTime": "Sepanjang masa",
     "bills": "Bil dibahagi",
