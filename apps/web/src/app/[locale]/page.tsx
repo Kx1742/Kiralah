@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { KopitiamWall, TableDemo } from "@/components/KopitiamScene";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Link } from "@/i18n/navigation";
 
 type Props = {
   params: Promise<{ locale: "en" | "ms" | "zh-CN" }>;
@@ -36,26 +37,18 @@ export default function HomePage({ params }: Props) {
 
       <section className="px-4 pt-4 pb-4">
         <div className="mx-auto flex w-full max-w-md flex-col gap-3">
-          <button
-            type="button"
-            disabled
-            className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full bg-chilli px-7 text-left text-xl font-extrabold text-white shadow-float transition enabled:hover:brightness-110 enabled:active:translate-y-1 enabled:active:shadow-none"
+          <Link
+            href="/new"
+            className="flex min-h-14 w-full items-center justify-center rounded-full bg-chilli px-7 text-xl font-extrabold text-white shadow-float transition hover:brightness-110 active:translate-y-1 active:shadow-none"
           >
             {t("home.splitBill")}
-            <span className="shrink-0 text-xs font-bold">
-              {t("home.comingSoon")}
-            </span>
-          </button>
-          <button
-            type="button"
-            disabled
-            className="flex min-h-14 w-full items-center justify-between gap-3 rounded-full bg-marble px-7 text-left text-xl font-extrabold text-ink shadow-float ring-2 ring-jade transition enabled:hover:brightness-95 enabled:active:translate-y-1 enabled:active:shadow-none"
+          </Link>
+          <Link
+            href="/new/equal"
+            className="flex min-h-14 w-full items-center justify-center rounded-full bg-marble px-7 text-xl font-extrabold text-ink shadow-float ring-2 ring-jade transition hover:brightness-95 active:translate-y-1 active:shadow-none"
           >
             {t("home.splitEqually")}
-            <span className="shrink-0 text-xs font-bold text-ink-soft">
-              {t("home.comingSoon")}
-            </span>
-          </button>
+          </Link>
           <p className="text-center text-sm font-bold text-ink-soft">
             {t("home.promise")}
           </p>
