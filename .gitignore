@@ -16,3 +16,4 @@ apps/web/test-results/
 
 .tools/
 .DS_Store
+evals/results/

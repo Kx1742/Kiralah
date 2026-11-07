@@ -1,0 +1,30 @@
+{
+  "source": "synthetic",
+  "language": "zh",
+  "restaurantName": "新香港茶餐厅",
+  "items": [
+    {
+      "name": "叉烧饭",
+      "quantity": 2,
+      "lineTotal": "27.60"
+    },
+    {
+      "name": "干炒牛河",
+      "quantity": 1,
+      "lineTotal": "16.80"
+    },
+    {
+      "name": "冻奶茶",
+      "quantity": 2,
+      "lineTotal": "10.40"
+    },
+    {
+      "name": "菠萝油",
+      "quantity": 1,
+      "lineTotal": "4.50"
+    }
+  ],
+  "serviceCharge": "5.93",
+  "serviceTax": "3.91",
+  "total": "69.14"
+}

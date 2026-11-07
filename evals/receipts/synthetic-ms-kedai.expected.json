@@ -1,0 +1,25 @@
+{
+  "source": "synthetic",
+  "language": "ms",
+  "restaurantName": "KEDAI MAKAN SELERA KAMPUNG",
+  "items": [
+    {
+      "name": "Mee Goreng Mamak",
+      "quantity": 2,
+      "lineTotal": "17.00"
+    },
+    {
+      "name": "Ayam Penyet",
+      "quantity": 1,
+      "lineTotal": "14.90"
+    },
+    {
+      "name": "Air Sirap Limau",
+      "quantity": 2,
+      "lineTotal": "6.00"
+    }
+  ],
+  "serviceCharge": "3.29",
+  "serviceTax": "2.17",
+  "total": "38.35"
+}

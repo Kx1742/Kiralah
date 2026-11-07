@@ -15,6 +15,7 @@
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
+    "eval": "pnpm --filter @splitlah/web eval",
     "test:e2e": "pnpm --filter @splitlah/web test:e2e",
     "db:migrate": "pnpm --filter @splitlah/web db:migrate",
     "db:deploy": "pnpm --filter @splitlah/web db:deploy",

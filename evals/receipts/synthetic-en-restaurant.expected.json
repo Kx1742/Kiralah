@@ -1,0 +1,30 @@
+{
+  "source": "synthetic",
+  "language": "en",
+  "restaurantName": "The Kopi Kitchen",
+  "items": [
+    {
+      "name": "Butter Chicken",
+      "quantity": 1,
+      "lineTotal": "28.90"
+    },
+    {
+      "name": "Nasi Goreng Kampung",
+      "quantity": 1,
+      "lineTotal": "15.90"
+    },
+    {
+      "name": "Sotong Goreng Tepung",
+      "quantity": 1,
+      "lineTotal": "24.90"
+    },
+    {
+      "name": "Ice Lemon Tea",
+      "quantity": 3,
+      "lineTotal": "13.50"
+    }
+  ],
+  "serviceCharge": "8.32",
+  "serviceTax": "5.49",
+  "total": "97.01"
+}

@@ -1,0 +1,20 @@
+{
+  "source": "synthetic",
+  "language": "ms",
+  "restaurantName": "Restoran Nasi Campur Mak Long",
+  "items": [
+    {
+      "name": "Nasi Campur",
+      "quantity": 3,
+      "lineTotal": "31.50"
+    },
+    {
+      "name": "Teh O Ais",
+      "quantity": 3,
+      "lineTotal": "6.60"
+    }
+  ],
+  "serviceCharge": null,
+  "serviceTax": "2.29",
+  "total": "40.39"
+}

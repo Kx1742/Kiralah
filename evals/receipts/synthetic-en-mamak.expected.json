@@ -1,0 +1,30 @@
+{
+  "source": "synthetic",
+  "language": "en",
+  "restaurantName": "RESTORAN NASI KANDAR MAJU",
+  "items": [
+    {
+      "name": "Roti Canai",
+      "quantity": 2,
+      "lineTotal": "3.60"
+    },
+    {
+      "name": "Nasi Lemak Ayam",
+      "quantity": 1,
+      "lineTotal": "9.00"
+    },
+    {
+      "name": "Teh Tarik",
+      "quantity": 3,
+      "lineTotal": "7.50"
+    },
+    {
+      "name": "Milo Ais",
+      "quantity": 1,
+      "lineTotal": "3.20"
+    }
+  ],
+  "serviceCharge": null,
+  "serviceTax": null,
+  "total": "23.30"
+}

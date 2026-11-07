@@ -1,0 +1,30 @@
+{
+  "source": "synthetic",
+  "language": "mixed",
+  "restaurantName": "好味点心 Ho Mei Dim Sum",
+  "items": [
+    {
+      "name": "虾饺 Har Gow",
+      "quantity": 2,
+      "lineTotal": "21.60"
+    },
+    {
+      "name": "烧卖 Siew Mai",
+      "quantity": 2,
+      "lineTotal": "19.60"
+    },
+    {
+      "name": "凤爪 Chicken Feet",
+      "quantity": 1,
+      "lineTotal": "7.90"
+    },
+    {
+      "name": "普洱茶 Pu Er Tea",
+      "quantity": 4,
+      "lineTotal": "12.00"
+    }
+  ],
+  "serviceCharge": "5.50",
+  "serviceTax": "3.63",
+  "total": "64.10"
+}
