@@ -3,7 +3,10 @@ import { Caveat_Brush, Nunito } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { OfflineBanner } from "@/components/OfflineBanner";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import { routing } from "@/i18n/routing";
+import { DISPLAY_SCRIPT } from "@/lib/display";
 import "../globals.css";
 
 const nunito = Nunito({
@@ -48,9 +51,18 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       className={`${nunito.variable} ${caveatBrush.variable}`}
+      // The display script sets data-theme and data-text before React loads.
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: DISPLAY_SCRIPT }} />
+      </head>
       <body className="min-h-dvh antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <OfflineBanner />
+          {children}
+        </NextIntlClientProvider>
+        <ServiceWorker />
       </body>
     </html>
   );

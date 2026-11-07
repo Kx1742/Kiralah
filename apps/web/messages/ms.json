@@ -286,6 +286,26 @@
     "letPickAgain": "Benarkan {name} pilih semula",
     "editBill": "Ubah bil",
     "onlyPayerEdits": "Hanya {payer} boleh ubah bil ini, dari telefon yang menciptanya.",
-    "backToBill": "Kembali ke bil"
+    "backToBill": "Kembali ke bil",
+    "deleteBill": "Padam bil",
+    "deleteConfirm": "Tekan sekali lagi untuk padam bagi semua orang",
+    "deleted": "Bil ini sudah dipadam atau tamat tempoh.",
+    "backHome": "Kembali ke laman utama"
+  },
+  "display": {
+    "open": "Saiz teks dan warna",
+    "icon": "Aa",
+    "title": "Paparan",
+    "textSize": "Saiz teks",
+    "normal": "Biasa",
+    "large": "Besar",
+    "colours": "Warna",
+    "auto": "Ikut telefon",
+    "light": "Cerah",
+    "dark": "Gelap",
+    "done": "Siap"
+  },
+  "offline": {
+    "banner": "Anda di luar talian. Kerja anda disimpan di telefon ini, dan akan dikemas kini apabila talian kembali."
   }
 }

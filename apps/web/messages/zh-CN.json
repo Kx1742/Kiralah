@@ -286,6 +286,26 @@
     "letPickAgain": "允许 {name} 重新选择",
     "editBill": "修改账单",
     "onlyPayerEdits": "只有 {payer} 能用创建账单的那部手机修改它。",
-    "backToBill": "回到账单"
+    "backToBill": "回到账单",
+    "deleteBill": "删除账单",
+    "deleteConfirm": "再点一次，为所有人删除",
+    "deleted": "这张账单已被删除或已过期。",
+    "backHome": "回到首页"
+  },
+  "display": {
+    "open": "文字大小和颜色",
+    "icon": "Aa",
+    "title": "显示",
+    "textSize": "文字大小",
+    "normal": "标准",
+    "large": "大",
+    "colours": "颜色",
+    "auto": "跟随手机",
+    "light": "浅色",
+    "dark": "深色",
+    "done": "完成"
+  },
+  "offline": {
+    "banner": "你目前处于离线状态。内容已保存在这部手机上，恢复连接后会自动更新。"
   }
 }

@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { KopitiamWall, TableDemo } from "@/components/KopitiamScene";
+import { DisplaySettings } from "@/components/DisplaySettings";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Link } from "@/i18n/navigation";
 
@@ -18,14 +19,17 @@ export default function HomePage({ params }: Props) {
     <main className="flex min-h-dvh flex-col overflow-hidden">
       <KopitiamWall>
         <div className="pointer-events-none relative z-20 flex justify-end px-3 pt-2 *:pointer-events-auto">
-          <LanguageSwitcher />
+          <div className="flex items-center gap-2">
+            <DisplaySettings />
+            <LanguageSwitcher />
+          </div>
         </div>
 
         <div className="pointer-events-none relative z-10 flex flex-1 flex-col items-center justify-center px-10 py-1 text-center">
-          <h1 className="origin-top animate-settle rounded-2xl border-4 border-kaya bg-jade-deep px-5 pt-1 pb-2 font-brush text-[3.75rem] leading-none tracking-wide text-cream shadow-float outline-2 -outline-offset-8 outline-kaya/35 sm:text-8xl">
+          <h1 className="origin-top animate-settle rounded-2xl border-4 border-kaya bg-jade-deep px-5 pt-1 pb-2 font-brush text-[3.75rem] leading-none tracking-wide text-chalk shadow-float outline-2 -outline-offset-8 outline-kaya/35 sm:text-8xl">
             {t("brand")}
           </h1>
-          <p className="mt-2 max-w-md text-lg leading-snug font-extrabold text-balance text-cream sm:text-2xl">
+          <p className="mt-2 max-w-md text-lg leading-snug font-extrabold text-balance text-chalk sm:text-2xl">
             {t("home.tagline")}
           </p>
         </div>

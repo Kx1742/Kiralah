@@ -6,6 +6,7 @@ import type {
 } from "react";
 import { useId } from "react";
 import { Link } from "@/i18n/navigation";
+import { DisplaySettings } from "./DisplaySettings";
 import { Awning } from "./illustrations";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -47,10 +48,16 @@ export function Screen({
       <header className="kopitiam-wall shrink-0">
         <Awning className="relative h-9 w-full drop-shadow-md" />
         <div className="relative flex items-center justify-between px-3 py-2">
-          <Link href="/" className="px-1 font-brush text-3xl text-cream">
+          <Link
+            href="/"
+            className="header-brand px-1 font-brush text-3xl text-chalk"
+          >
             <Brand />
           </Link>
-          <LanguageSwitcher />
+          <div className="flex items-center gap-2">
+            <DisplaySettings />
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
       <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-4 px-4 py-4">
@@ -107,7 +114,7 @@ export function Field({
         autoComplete="off"
         aria-invalid={error ? true : undefined}
         {...props}
-        className={`min-h-12 w-full min-w-0 rounded-xl border-2 bg-white px-3 text-lg text-ink placeholder:text-ink-soft/70 focus:border-jade focus:outline-none ${
+        className={`min-h-12 w-full min-w-0 rounded-xl border-2 bg-field px-3 text-lg text-ink placeholder:text-ink-soft/70 focus:border-jade focus:outline-none ${
           error ? "border-chilli" : "border-ink-soft/40"
         }`}
       />
@@ -222,7 +229,7 @@ export function Choice<Value extends string>({
           aria-checked={option.value === value}
           onClick={() => onChange(option.value)}
           className={`min-h-11 cursor-pointer rounded-full px-4 text-sm font-extrabold ring-2 ring-jade ${
-            option.value === value ? "bg-jade text-white" : "bg-white text-ink"
+            option.value === value ? "bg-jade text-white" : "bg-field text-ink"
           }`}
         >
           {option.label}

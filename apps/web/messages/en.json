@@ -286,6 +286,26 @@
     "letPickAgain": "Let {name} pick again",
     "editBill": "Edit bill",
     "onlyPayerEdits": "Only {payer} can edit this bill, from the phone that made it.",
-    "backToBill": "Back to the bill"
+    "backToBill": "Back to the bill",
+    "deleteBill": "Delete bill",
+    "deleteConfirm": "Tap again to delete for everyone",
+    "deleted": "This bill was deleted or has expired.",
+    "backHome": "Back to home"
+  },
+  "display": {
+    "open": "Text size and colours",
+    "icon": "Aa",
+    "title": "Display",
+    "textSize": "Text size",
+    "normal": "Normal",
+    "large": "Large",
+    "colours": "Colours",
+    "auto": "Match phone",
+    "light": "Light",
+    "dark": "Dark",
+    "done": "Done"
+  },
+  "offline": {
+    "banner": "You're offline. Your work is saved on this phone, and we'll catch up when you're back."
   }
 }

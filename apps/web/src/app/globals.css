@@ -18,6 +18,10 @@
   --color-terracotta: #c4693f;
   --color-wood: #8a5a33;
   --color-kaya: #e3b23c;
+  /* Light text on the green wall, in both colour modes. */
+  --color-chalk: #f8f1e3;
+  /* Text boxes and chips. */
+  --color-field: #ffffff;
 
   --font-sans:
     var(--font-nunito), "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei",
@@ -172,6 +176,82 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%23c4693f' d='M0 0h10L0 10Zm40 0v10L30 0ZM0 40V30l10 10Zm40 0H30l10-10Z'/%3E%3Cpath fill='%230e5a4a' d='M20 3l17 17-17 17L3 20Z'/%3E%3Cpath fill='%23f8f1e3' d='M20 10l10 10-10 10-10-10Z'/%3E%3Ccircle cx='20' cy='20' r='4' fill='%23b3301c'/%3E%3C/svg%3E");
   background-size: 2rem 2rem;
   border-top: 4px solid var(--color-wood);
+}
+
+/* Dark mode: follows the phone unless the person picks Light or Dark. */
+:root[data-theme="dark"] {
+  --color-cream: #17130f;
+  --color-marble: #241d17;
+  --color-field: #2e261f;
+  --color-ink: #f4ead9;
+  --color-ink-soft: #cdbda8;
+  --color-wood: #6b4628;
+  color-scheme: dark;
+}
+:root[data-theme="dark"] .text-jade {
+  color: #8fd8c0;
+}
+:root[data-theme="dark"] .ring-jade {
+  --tw-ring-color: #4fae8f;
+}
+:root[data-theme="dark"] .border-jade {
+  border-color: #4fae8f;
+}
+:root[data-theme="dark"] .outline-jade {
+  outline-color: #4fae8f;
+}
+:root[data-theme="dark"] .text-chilli {
+  color: #ff9478;
+}
+:root[data-theme="dark"] .border-chilli {
+  border-color: #ff9478;
+}
+:root[data-theme="dark"] .bg-kaya {
+  color: #2b1d14;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-cream: #17130f;
+    --color-marble: #241d17;
+    --color-field: #2e261f;
+    --color-ink: #f4ead9;
+    --color-ink-soft: #cdbda8;
+    --color-wood: #6b4628;
+    color-scheme: dark;
+  }
+  :root:not([data-theme="light"]) .text-jade {
+    color: #8fd8c0;
+  }
+  :root:not([data-theme="light"]) .ring-jade {
+    --tw-ring-color: #4fae8f;
+  }
+  :root:not([data-theme="light"]) .border-jade {
+    border-color: #4fae8f;
+  }
+  :root:not([data-theme="light"]) .outline-jade {
+    outline-color: #4fae8f;
+  }
+  :root:not([data-theme="light"]) .text-chilli {
+    color: #ff9478;
+  }
+  :root:not([data-theme="light"]) .border-chilli {
+    border-color: #ff9478;
+  }
+  :root:not([data-theme="light"]) .bg-kaya {
+    color: #2b1d14;
+  }
+}
+
+/* Large text: everything is sized in rem, so the whole app scales together. */
+:root[data-text="large"] {
+  font-size: 118.75%;
+}
+
+@media (max-width: 400px) {
+  :root[data-text="large"] .header-brand {
+    font-size: 1.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
