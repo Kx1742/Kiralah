@@ -34,7 +34,7 @@ GitHub Actions runs lint, typecheck, unit tests and the browser tests on every p
 
 ## 2. Database: Neon
 
-1. Create a project at [neon.tech](https://neon.tech), in the **Singapore** region (closest to Malaysia).
+1. Create a project at [neon.tech](https://neon.tech), in the **Singapore** region (closest to Malaysia). Vercel runs the server code in Singapore too (`regions` in `apps/web/vercel.json`), so the two sit side by side.
 2. Copy two connection strings: the **pooled** one (host contains `-pooler`) and the **direct** one.
 
 ## 3. Hosting: Vercel
