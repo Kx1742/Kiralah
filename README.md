@@ -127,7 +127,7 @@ Not launched yet. `/stats` shows bills split, people per bill and ringgit split,
 
 ## Run it locally
 
-Needs Node 24+ and pnpm (`corepack enable`).
+Needs Node 24+ and pnpm (`npm install -g pnpm`).
 
 ```bash
 pnpm install
