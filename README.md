@@ -23,12 +23,13 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:e2e
+pnpm eval    # receipt reading accuracy; needs ANTHROPIC_API_KEY and costs a few cents
 ```
 
 ## Deploy
 
 1. **Neon:** create a project (Singapore region is closest), and copy the pooled and direct connection strings.
 2. **Vercel:** import the GitHub repo and set Root Directory to `apps/web`.
-3. Add `DATABASE_URL` (pooled), `DIRECT_URL` (direct) and `RATE_LIMIT_SALT` (any long random string) as environment variables.
+3. Add `DATABASE_URL` (pooled), `DIRECT_URL` (direct) `RATE_LIMIT_SALT` (any long random string) and `ANTHROPIC_API_KEY` (for receipt scanning; optional) as environment variables.
 4. Set the Build Command to `pnpm db:deploy && pnpm build`.
 5. Open `/api/health`: it should say `{"status":"ok","db":"up"}`.

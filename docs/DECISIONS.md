@@ -47,6 +47,18 @@ The payer opens the same steps as when creating it, filled in from the saved bil
 
 Custom portions such as "Ali had 2 of the 3 teh tarik" work in the money engine, but the screens only split a shared dish equally.
 
+## Reading receipts with Claude
+
+- **Model:** Claude Haiku 5.5 (`claude-haiku-5-5`), as the plan chose, at low effort: copying text from a photo needs little reasoning, and the payer is waiting. At $0.10 per million input tokens, one photo costs a fraction of a cent.
+- **Structured output:** the reply must match a Zod schema (`output_config.format`), and is checked again with Zod on our side.
+- **Amounts stay text** (`"12.40"`) and go through the money engine's own parser. The model never does arithmetic on money. Rates that aren't printed are worked out from the printed amounts and rounded to a whole percent, the way restaurants set them.
+- **The photo is never stored or logged.** It is shrunk on the phone (up to 2000px, JPEG), checked by its actual bytes, sent to the API once, and dropped.
+- **Limits:** 10 scans per phone per hour, and a daily cap for everyone (`RECEIPT_DAILY_CAP`, default 200), counted in Postgres without storing IPs. Without `ANTHROPIC_API_KEY` the feature switches itself off.
+- **Always a way out:** every failure (not a receipt, unreadable, busy, limit reached, switched off) says so in plain words and leaves the typing form right there.
+- **Nothing is trusted blindly:** scanned dishes land in the normal editable list, and if they don't add up to the receipt's total, the payer is told on the spot and again on the charges step with one-tap fixes.
+
+**Eval status:** `pnpm eval` scores dishes found, prices right, extra lines, charges and total against hand-checked answers in `evals/`. Only 6 synthetic receipts are there so far, and the eval has not been run against the API yet, because no API key was available while building it. The plan's 20 to 30 real receipts are still needed.
+
 ## Dishes and people are tables; charges and vouchers are JSON
 
 Friends will tap dishes at the same moment. Separate rows let those writes not collide, which one JSON blob for the whole bill could not. Charges, vouchers and adjustments only change with the payer, so they stay as JSON and are validated with Zod every time they are read.
