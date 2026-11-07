@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/*
+ * Ocean design system.
+ * Home is the deep watercolour sea; inner screens are pale paper with layered
+ * waves and white rounded cards. Coral is reserved for the one main action.
+ */
+@theme {
+  --color-abyss: #0a2463;
+  --color-ocean: #1548a8;
+  --color-lagoon: #2f7ed8;
+  --color-sky: #a9d0f2;
+  --color-foam: #eef3f7;
+  --color-ink: #0f2b52;
+  --color-ink-soft: #46597a;
+  --color-coral: #c8401a;
+  --color-coral-deep: #a93412;
+  --color-seafoam: #8fd8c9;
+  --color-kelp: #4c9a4f;
+  --color-lilac: #a48be6;
+  --color-sand: #f2b872;
+
+  --font-sans:
+    var(--font-nunito), "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei",
+    system-ui, sans-serif;
+  --font-brush: var(--font-caveat-brush), var(--font-sans);
+
+  --radius-card: 1.75rem;
+  --shadow-float: 0 6px 0 0 rgb(10 36 99 / 0.18);
+
+  --animate-bob: bob 5s ease-in-out infinite;
+  --animate-drift: drift 7s ease-in-out infinite;
+
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-1.5deg);
+    }
+    50% {
+      transform: translateY(-5px) rotate(1.5deg);
+    }
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(6px, -8px);
+    }
+  }
+}
+
+body {
+  background: var(--color-foam);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hand-painted sea: stacked soft gradients, no image download on slow data. */
+.watercolour-sea {
+  background:
+    radial-gradient(
+      60% 40% at 15% 12%,
+      rgb(47 126 216 / 0.45),
+      transparent 70%
+    ),
+    radial-gradient(50% 35% at 90% 30%, rgb(10 36 99 / 0.55), transparent 70%),
+    radial-gradient(
+      70% 30% at 60% 85%,
+      rgb(47 126 216 / 0.35),
+      transparent 70%
+    ),
+    var(--color-ocean);
+}
+
+.watercolour-bubble {
+  background:
+    radial-gradient(
+      45% 40% at 30% 28%,
+      rgb(255 255 255 / 0.14),
+      transparent 70%
+    ),
+    radial-gradient(55% 50% at 72% 70%, rgb(10 36 99 / 0.35), transparent 75%),
+    rgb(47 126 216 / 0.28);
+  box-shadow:
+    inset 0 0 0 3px rgb(169 208 242 / 0.28),
+    inset 0 0 40px rgb(164 139 230 / 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}

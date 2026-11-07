@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "SplitLah — 公平分摊饭钱",
+    "description": "直接在 WhatsApp 上公平分摊饭钱。无需下载，无需注册，一个链接就够了。"
+  },
+  "brand": "SplitLah",
+  "home": {
+    "tagline": "直接在 WhatsApp 上公平分摊饭钱",
+    "splitBill": "分摊账单",
+    "splitEqually": "直接平分",
+    "promise": "无需下载，无需注册，一个链接就够了。",
+    "comingSoon": "即将推出"
+  },
+  "language": {
+    "label": "语言",
+    "en": { "short": "EN", "name": "English" },
+    "ms": { "short": "BM", "name": "Bahasa Melayu" },
+    "zh-CN": { "short": "中文", "name": "简体中文" }
+  },
+  "notFound": {
+    "title": "哎呀，这个页面漂走了",
+    "body": "链接可能有误，或者这张账单已被删除。",
+    "home": "回到首页"
+  }
+}

@@ -1,0 +1,14 @@
+import path from "node:path";
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+const repoRoot = path.join(import.meta.dirname, "../..");
+
+const nextConfig: NextConfig = {
+  transpilePackages: ["@splitlah/core"],
+  outputFileTracingRoot: repoRoot,
+  turbopack: { root: repoRoot },
+};
+
+export default withNextIntl(nextConfig);

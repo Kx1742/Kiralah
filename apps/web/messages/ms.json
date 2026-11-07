@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "SplitLah — bahagi bil makan dengan adil",
+    "description": "Bahagi bil makan dengan adil, terus dari WhatsApp. Tak perlu app, tak perlu daftar, cuma satu pautan."
+  },
+  "brand": "SplitLah",
+  "home": {
+    "tagline": "Bahagi bil makan dengan adil, terus dari WhatsApp",
+    "splitBill": "Bahagi bil",
+    "splitEqually": "Bahagi sama rata",
+    "promise": "Tak perlu app. Tak perlu daftar. Cuma satu pautan.",
+    "comingSoon": "Akan datang"
+  },
+  "language": {
+    "label": "Bahasa",
+    "en": { "short": "EN", "name": "English" },
+    "ms": { "short": "BM", "name": "Bahasa Melayu" },
+    "zh-CN": { "short": "中文", "name": "简体中文" }
+  },
+  "notFound": {
+    "title": "Alamak, halaman ni dah hanyut",
+    "body": "Pautan mungkin salah, atau bil ini sudah dipadam.",
+    "home": "Kembali ke laman utama"
+  }
+}

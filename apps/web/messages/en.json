@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "SplitLah — split makan bills fairly",
+    "description": "Split makan bills fairly, straight from WhatsApp. No app, no sign-up, just a link."
+  },
+  "brand": "SplitLah",
+  "home": {
+    "tagline": "Split makan bills fairly, straight from WhatsApp",
+    "splitBill": "Split a bill",
+    "splitEqually": "Just split equally",
+    "promise": "No app. No sign-up. Just a link.",
+    "comingSoon": "Coming soon"
+  },
+  "language": {
+    "label": "Language",
+    "en": { "short": "EN", "name": "English" },
+    "ms": { "short": "BM", "name": "Bahasa Melayu" },
+    "zh-CN": { "short": "中文", "name": "简体中文" }
+  },
+  "notFound": {
+    "title": "Oops, this page drifted away",
+    "body": "The link may be wrong, or the bill was already deleted.",
+    "home": "Back to home"
+  }
+}
