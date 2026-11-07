@@ -7,10 +7,62 @@ datasource db {
   provider = "postgresql"
 }
 
-// Skeleton only: Phase 2 adds items, people and payment details.
 model Bill {
-  id        String   @id
-  createdAt DateTime @default(now())
+  id              String   @id
+  /// SHA-256 of the payer's edit token. The token itself is only on their device.
+  editTokenHash   String
+  locale          String
+  restaurantName  String?
+  mode            String
+  payerId         String
+  cashRounding    Boolean
+  /// Itemised bills only. Validated with Zod on every read.
+  charges         Json?
+  discounts       Json?
+  adjustments     Json?
+  receiptTotalSen Int?
+  /// Equal-split bills only.
+  equalTotalSen   Int?
+  paymentBankName String?
+  paymentAccount  String?
+  paymentPhone    String?
+  paymentQr       Bytes?
+  paymentQrType   String?
+  createdAt       DateTime @default(now())
+  expiresAt       DateTime
+
+  people Person[]
+  items  Item[]
+
+  @@index([expiresAt])
+}
+
+model Person {
+  billId   String
+  id       String
+  name     String
+  position Int
+  bill     Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  @@id([billId, id])
+}
+
+model Item {
+  billId       String
+  id           String
+  name         String
+  quantity     Int
+  unitPriceSen Int
+  position     Int
+  bill         Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  @@id([billId, id])
+}
+
+/// Counts requests per hashed IP per hour. Holds no IP addresses.
+model RateLimit {
+  key       String   @id
+  count     Int
   expiresAt DateTime
 
   @@index([expiresAt])
