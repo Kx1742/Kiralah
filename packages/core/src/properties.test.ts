@@ -2,7 +2,8 @@ import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 import { calculateBill } from "./calculate";
 import type { Bill, Discount, ItemisedBill } from "./schema";
-import { billSchema, DEFAULT_CHARGES } from "./schema";
+import { DEFAULT_CHARGES } from "./defaults";
+import { billSchema } from "./schema";
 
 const personIds = ["ali", "bee", "chong", "devi", "esah"];
 

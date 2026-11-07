@@ -1,5 +1,7 @@
 export { calculateBill } from "./calculate";
+export { DEFAULT_CHARGES } from "./defaults";
 export { formatRinggit } from "./format";
+export { parsePercent, parseRinggit } from "./parse";
 export {
   BREAKDOWN_KEYS,
   type BillResult,
@@ -11,7 +13,8 @@ export {
 } from "./result";
 export {
   billSchema,
-  DEFAULT_CHARGES,
+  chargesSchema,
+  discountSchema,
   type Bill,
   type Charges,
   type Discount,

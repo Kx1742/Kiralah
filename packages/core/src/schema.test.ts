@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { billSchema, DEFAULT_CHARGES } from "./schema";
+import { DEFAULT_CHARGES } from "./defaults";
+import { billSchema } from "./schema";
 
 const validBill = {
   mode: "itemised",

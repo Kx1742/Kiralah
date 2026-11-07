@@ -80,14 +80,6 @@ export const chargesSchema = z.strictObject({
   discountTiming: z.enum(["beforeCharges", "afterCharges"]),
 });
 
-export const DEFAULT_CHARGES: z.infer<typeof chargesSchema> = {
-  pricesIncludeCharges: false,
-  serviceChargeBasisPoints: 1000,
-  serviceTaxBasisPoints: 600,
-  taxOnServiceCharge: true,
-  discountTiming: "beforeCharges",
-};
-
 const billCommon = {
   payerId: id,
   people: z.array(personSchema).min(1).max(50),
