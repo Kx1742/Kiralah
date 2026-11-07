@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { withinHourlyLimit } from "./rateLimit";
+import { withinDailyCap, withinHourlyLimit } from "./rateLimit";
 
 const counts = new Map<string, number>();
 const upsert = vi.fn(async ({ where: { key } }: { where: { key: string } }) => {
@@ -46,5 +46,16 @@ describe("withinHourlyLimit", () => {
   it("never stores the IP address", async () => {
     await withinHourlyLimit(requestFrom("1.2.3.4"), "createBill", 1);
     expect(JSON.stringify(upsert.mock.calls)).not.toContain("1.2.3.4");
+  });
+});
+
+describe("withinDailyCap", () => {
+  beforeEach(() => counts.clear());
+
+  it("counts everyone together, up to the cap", async () => {
+    const results = [];
+    for (let i = 0; i < 3; i++)
+      results.push(await withinDailyCap("scanReceipt", 2));
+    expect(results).toEqual([true, true, false]);
   });
 });

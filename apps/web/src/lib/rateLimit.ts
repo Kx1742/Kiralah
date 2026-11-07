@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { getDb } from "./db";
 
 const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
 
 function clientIp(request: Request): string {
   return (
@@ -28,4 +29,21 @@ export async function withinHourlyLimit(
     update: { count: { increment: 1 } },
   });
   return count <= limit;
+}
+
+/** True while today's total for an action, across everyone, is within the cap. */
+export async function withinDailyCap(
+  action: string,
+  cap: number,
+): Promise<boolean> {
+  const day = Math.floor(Date.now() / DAY_MS);
+  const key = createHash("sha256")
+    .update(`daily:${action}:${day}`)
+    .digest("hex");
+  const { count } = await getDb().rateLimit.upsert({
+    where: { key },
+    create: { key, count: 1, expiresAt: new Date((day + 2) * DAY_MS) },
+    update: { count: { increment: 1 } },
+  });
+  return count <= cap;
 }

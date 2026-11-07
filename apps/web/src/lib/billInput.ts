@@ -123,8 +123,9 @@ const IMAGE_SIGNATURES: {
 ];
 
 /** Trusts the file's own bytes, never the type it claims. */
-export function decodeQrImage(
+export function decodeImage(
   dataUrl: string,
+  maxBytes: number,
 ): { bytes: Uint8Array<ArrayBuffer>; type: string } | null {
   const match =
     /^data:image\/(?:jpeg|png|webp);base64,([A-Za-z0-9+/]+={0,2})$/.exec(
@@ -132,7 +133,10 @@ export function decodeQrImage(
     );
   if (!match) return null;
   const bytes = new Uint8Array(Buffer.from(match[1]!, "base64"));
-  if (bytes.length === 0 || bytes.length > MAX_QR_BYTES) return null;
+  if (bytes.length === 0 || bytes.length > maxBytes) return null;
   const signature = IMAGE_SIGNATURES.find(({ matches }) => matches(bytes));
   return signature ? { bytes, type: signature.type } : null;
 }
+
+export const decodeQrImage = (dataUrl: string) =>
+  decodeImage(dataUrl, MAX_QR_BYTES);
