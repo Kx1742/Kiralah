@@ -17,6 +17,19 @@ export default tseslint.config(
     ],
   },
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      // A leading underscore marks a value left out on purpose, e.g. { [key]: _removed, ...rest }.
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
+  },
   ...nextVitals.map((config) => ({ ...config, files: webFiles })),
   {
     files: webFiles,

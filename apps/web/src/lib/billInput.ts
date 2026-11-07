@@ -12,59 +12,94 @@ const optionalText = (max: number) =>
     .transform((value) => value || undefined)
     .optional();
 
-export const createBillInputSchema = z
-  .strictObject({
-    locale: z.enum(routing.locales),
-    restaurantName: optionalText(80),
-    bill: billSchema,
-    payment: z.strictObject({
-      bankName: optionalText(60),
-      accountNumber: z
-        .string()
-        .trim()
-        .regex(/^[\d -]*$/)
-        .max(34)
-        .transform((value) => value || undefined)
-        .optional(),
-      phone: z
-        .string()
-        .trim()
-        .regex(/^[\d +()-]*$/)
-        .max(20)
-        .transform((value) => value || undefined)
-        .optional(),
-      qrDataUrl: z.string().max(500_000).optional(),
-    }),
-  })
-  .superRefine(({ bill }, ctx) => {
-    if (bill.mode === "itemised") {
-      if (bill.items.length === 0) {
-        ctx.addIssue({
-          code: "custom",
-          message: "A bill needs at least one item",
-        });
-      }
-      // Dishes are only ever claimed by the friends themselves, on the bill page.
-      if (bill.items.some((item) => item.portions.length > 0)) {
-        ctx.addIssue({
-          code: "custom",
-          message: "A new bill has no claimed items",
-        });
-      }
-    } else {
-      if (bill.people.length < 2) {
-        ctx.addIssue({
-          code: "custom",
-          message: "Equal split needs at least two people",
-        });
-      }
-      if (bill.totalSen === 0) {
-        ctx.addIssue({ code: "custom", message: "Equal split needs a total" });
-      }
+const billInputObject = z.strictObject({
+  locale: z.enum(routing.locales),
+  restaurantName: optionalText(80),
+  bill: billSchema,
+  payment: z.strictObject({
+    bankName: optionalText(60),
+    accountNumber: z
+      .string()
+      .trim()
+      .regex(/^[\d -]*$/)
+      .max(34)
+      .transform((value) => value || undefined)
+      .optional(),
+    phone: z
+      .string()
+      .trim()
+      .regex(/^[\d +()-]*$/)
+      .max(20)
+      .transform((value) => value || undefined)
+      .optional(),
+    qrDataUrl: z.string().max(500_000).optional(),
+  }),
+});
+
+function checkBill(
+  { bill }: z.infer<typeof billInputObject>,
+  ctx: z.RefinementCtx,
+) {
+  if (bill.mode === "itemised") {
+    if (bill.items.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        message: "A bill needs at least one item",
+      });
     }
-  });
+    // Who had what is only ever changed through the claims API.
+    if (bill.items.some((item) => item.portions.length > 0)) {
+      ctx.addIssue({ code: "custom", message: "Claims are not set here" });
+    }
+  } else {
+    if (bill.people.length < 2) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Equal split needs at least two people",
+      });
+    }
+    if (bill.totalSen === 0) {
+      ctx.addIssue({ code: "custom", message: "Equal split needs a total" });
+    }
+  }
+}
+
+export const createBillInputSchema = billInputObject.superRefine(checkBill);
+
+export const editBillInputSchema = billInputObject
+  .extend({
+    /** Keep the QR already saved when no new image is sent. */
+    keepQr: z.boolean(),
+  })
+  .superRefine(checkBill);
 
 export type CreateBillInput = z.infer<typeof createBillInputSchema>;
+export type EditBillInput = z.infer<typeof editBillInputSchema>;
+
+const id = z.string().min(1).max(64);
+
+export const joinInputSchema = z
+  .strictObject({
+    personId: id.optional(),
+    name: z.string().trim().min(1).max(40).optional(),
+  })
+  .refine(
+    (input) => (input.personId === undefined) !== (input.name === undefined),
+    {
+      message: "Send a person or a name, not both",
+    },
+  );
+
+export const claimInputSchema = z.strictObject({
+  itemId: id,
+  personId: id,
+  had: z.boolean(),
+});
+
+export const paidInputSchema = z.strictObject({
+  personId: id,
+  paid: z.boolean(),
+});
 
 const IMAGE_SIGNATURES: {
   type: string;
