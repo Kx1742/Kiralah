@@ -2,6 +2,7 @@
 
 **Split makan bills fairly, straight from WhatsApp.** No app, no sign-up, just a link.
 
+[![CI](https://github.com/Kx1742/Kiralah/actions/workflows/ci.yml/badge.svg)](https://github.com/Kx1742/Kiralah/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-0e5a4a)
 ![Node 24+](https://img.shields.io/badge/node-24%2B-0e5a4a)
 ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-0e5a4a)
@@ -11,7 +12,7 @@
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | ![Payer: types the dishes, checks service charge and SST, adds friends and shares](docs/demo-payer.gif) | ![Friend: taps their name and dishes, sees what they owe, pays](docs/demo-friend.gif) |
 
-**Live:** not deployed yet. See [docs/LAUNCH.md](docs/LAUNCH.md).
+**Live:** [kiralah-sable.vercel.app](https://kiralah-sable.vercel.app). Try it on your phone.
 
 ## The problem
 
@@ -119,7 +120,7 @@ Not launched yet. `/stats` shows bills split, people per bill and ringgit split,
 
 ## Roadmap and known limitations
 
-- **Real-world proof still to come:** testing on real phones in WhatsApp, Lighthouse on the deployed site, and the receipt eval on real receipts.
+- **Real-world proof still to come:** testing on real phones in WhatsApp, Lighthouse on the live site, and the receipt eval on real receipts. Receipt scanning is off until an API key is added.
 - **Uneven shares of a dish** ("Ali had 2 of the 3 teh tarik") work in the money engine, but the screens only split a shared dish equally.
 - **1-for-1 works within one dish line.** For two different dishes, use RM off on the free one.
 - **Losing the phone means losing edit access** to bills made on it, because there are no accounts.
