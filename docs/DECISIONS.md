@@ -14,6 +14,77 @@ The project pins Node 24 (`.nvmrc`, `engines`). Current ESLint, Vitest and lint-
 
 The connection is made lazily on first query, so `next build` never needs a database. At runtime `DATABASE_URL` is Neon's pooled string; migrations use `DIRECT_URL`, because migrations must not go through a transaction pooler.
 
+## Money rules
+
+All money logic lives in `packages/core`, in integer sen. Rates are basis points (1000 = 10%). Inside the engine, shares of shares are kept as exact fractions (BigInt), never floats, and rounded once at the end.
+
+### Calculation order
+
+1. **Items.** Quantity × price. Own items go to that person. Shared items split by portions: equal by default, or custom such as 2:1.
+2. **Item promos** (1-for-1, free units, % or RM off an item) reduce that item's price, so only the people who had it benefit.
+3. **Bill-wide vouchers, then charges,** or the reverse: `discountTiming` is a bill setting, because some restaurants take a voucher off the final amount.
+4. **Service charge** on the running amount. **Service tax** on that amount plus the service charge. `taxOnServiceCharge` can turn the second part off. Each is rounded half up to whole sen, as receipts print them. `pricesIncludeCharges` ("nett") skips both. SST with no service charge is a 0% service charge.
+5. **Service charge and tax are split** in proportion to what each person owes at that point.
+6. **Adjustment lines** make the bill match a receipt. An extra charge follows what people ordered. A reduction follows what people owe, so it can never push anyone below zero.
+7. **Rounding,** described below.
+
+### Vouchers
+
+- **Minimum spend** is checked against the items' full price, before any discount. Otherwise removing one discount could switch another on.
+- **"Whose voucher?"** Savings are shared in proportion by default. If the owner keeps them, they get the saving up to what they owe and never go below zero. Any excess goes to everyone else, so the voucher's full value still comes off the bill.
+- **Limit:** 1-for-1 is per item line. Two different dishes on one promo need a RM-off promo on the free one.
+
+### Rounding
+
+Shares add up to exactly the total, using the **largest-remainder method:** everyone is rounded down to a whole sen, then the leftover sen go to the biggest fractions. `extraSen` records who absorbed one, so the app can show it. **The payer takes the extra sen in a tie,** because nobody should chase a friend for 1 sen.
+
+Someone who owes a whole amount never gets a leftover, and neither does someone who had nothing.
+
+**Cash rounding** (optional) rounds the total to the nearest 5 sen, then runs the same method in units of 5 sen, so every share is payable in real coins and they still add up.
+
+**Each person's breakdown adds up to exactly their share,** using the same method across their lines. Summed across people, a line such as service charge can differ from the receipt's line by a sen or two. Shares and the total are always exact.
+
+### Unclaimed items
+
+Until someone picks a dish, its cost sits in `unclaimedSen`, including its share of service charge and tax. Your amount does not jump as friends pick, and shares plus unclaimed always add up to the total.
+
+### Receipt check
+
+The payer can enter the receipt total. The engine reports the difference, which is also the adjustment line that would fix it, and flags when turning on cash rounding would fix it instead.
+
+### Worked example: member 20% off, savings shared
+
+Ali had Set A (RM35.90), Bee had Set B (RM29.90), and they shared fries (RM13.20). Defaults: 10% service, 6% SST.
+
+| Step           | Sum                   | Amount      |
+| -------------- | --------------------- | ----------- |
+| Subtotal       | 35.90 + 29.90 + 13.20 | RM79.00     |
+| Member 20% off | 20% of 79.00          | −RM15.80    |
+| After discount |                       | RM63.20     |
+| Service charge | 10% of 63.20          | RM6.32      |
+| SST            | 6% of 69.52 = 4.1712  | RM4.17      |
+| **Total**      | 63.20 + 6.32 + 4.17   | **RM73.69** |
+
+Ali ordered RM42.50 of the RM79.00 and Bee RM36.50, so:
+
+|     | Exact                              | Rounded down | Leftover 1 sen | Pays        |
+| --- | ---------------------------------- | ------------ | -------------- | ----------- |
+| Ali | 42.50 ÷ 79 × 73.69 = RM39.64**33** | RM39.64      |                | **RM39.64** |
+| Bee | 36.50 ÷ 79 × 73.69 = RM34.04**67** | RM34.04      | +1 sen         | **RM34.05** |
+
+RM39.64 + RM34.05 = RM73.69, exactly the receipt. Bee's fraction is bigger, so Bee absorbs the extra sen.
+
+### Two honest exceptions to "removing a discount never lowers anyone's share"
+
+The plan asked for this rule without exceptions. It holds in practice, with two exceptions, and both are pinned by tests in `properties.test.ts`.
+
+1. **Rounding, up to a few sen.** Largest-remainder cannot guarantee it: Balinski and Young proved no method can both stay within rounding of the exact share and never move a share the wrong way. Service charge and tax are also rounded on the bill before they are split. Example with default charges: RM12.50, RM17.50 and RM34.50, plus a 1-sen voucher. Without the voucher the first person pays RM14.57; with it, RM14.58. The property test allows only this rounding tolerance.
+2. **A percentage voucher someone keeps for themselves.** It is a percentage of the bill, so a bigger bill saves its owner more. Remove another diner's promo and the owner's share really does fall. This is correct: the restaurant really does take more off, and the owner keeps it, as chosen.
+
+### Test fixtures are not real receipts yet
+
+`packages/core/fixtures/` has hand-calculated examples modelled on common Malaysian receipt formats. The plan asks for real receipts, which still need collecting. They use the same format and can be added as they come in.
+
 ## Design system
 
 A Malaysian kopitiam: the feeling of sitting down at a marble table in a restored Peranakan shophouse. It says "makan" at first glance, and it feels local.
