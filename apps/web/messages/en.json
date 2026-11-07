@@ -38,5 +38,15 @@
     "title": "Alamak, we can't find this page",
     "body": "The link may be wrong, or the bill was already deleted.",
     "home": "Back to home"
+  },
+  "breakdown": {
+    "food": "Your food",
+    "discount": "Discount",
+    "serviceCharge": "Service charge",
+    "serviceTax": "SST",
+    "adjustment": "Adjustment",
+    "cashRounding": "Cash rounding",
+    "equalShare": "Your equal share",
+    "extraSen": "Includes {amount} extra so the bill adds up exactly"
   }
 }

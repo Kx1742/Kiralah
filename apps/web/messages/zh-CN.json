@@ -38,5 +38,15 @@
     "title": "哎呀，找不到这个页面",
     "body": "链接可能有误，或者这张账单已被删除。",
     "home": "回到首页"
+  },
+  "breakdown": {
+    "food": "你的餐点",
+    "discount": "折扣",
+    "serviceCharge": "服务费",
+    "serviceTax": "服务税 (SST)",
+    "adjustment": "调整",
+    "cashRounding": "现金进位",
+    "equalShare": "你的平分金额",
+    "extraSen": "已包含额外的 {amount}，让账单总额完全吻合"
   }
 }

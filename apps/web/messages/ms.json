@@ -38,5 +38,15 @@
     "title": "Alamak, halaman ni tak jumpa",
     "body": "Pautan mungkin salah, atau bil ini sudah dipadam.",
     "home": "Kembali ke laman utama"
+  },
+  "breakdown": {
+    "food": "Makanan anda",
+    "discount": "Diskaun",
+    "serviceCharge": "Caj perkhidmatan",
+    "serviceTax": "SST",
+    "adjustment": "Pelarasan",
+    "cashRounding": "Pembundaran tunai",
+    "equalShare": "Bahagian sama rata anda",
+    "extraSen": "Termasuk {amount} tambahan supaya jumlah bil tepat"
   }
 }

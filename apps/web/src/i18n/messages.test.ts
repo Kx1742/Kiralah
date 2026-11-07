@@ -1,3 +1,4 @@
+import { BREAKDOWN_KEYS } from "@splitlah/core";
 import { describe, expect, it } from "vitest";
 import en from "../../messages/en.json";
 import ms from "../../messages/ms.json";
@@ -20,4 +21,17 @@ describe("translations", () => {
   ])("%s has exactly the same keys as en", (_locale, messages) => {
     expect(keysOf(messages)).toEqual(keysOf(en));
   });
+
+  it.each([
+    ["en", en],
+    ["ms", ms],
+    ["zh-CN", zhCN],
+  ])(
+    "%s has words for every breakdown line from the money engine",
+    (_locale, messages) => {
+      for (const key of BREAKDOWN_KEYS) {
+        expect(messages.breakdown[key]).toBeTruthy();
+      }
+    },
+  );
 });
