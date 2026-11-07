@@ -1,6 +1,6 @@
 import { ActionError } from "@/lib/actionError";
 import { bearerToken, handle, readBody } from "@/lib/apiRoute";
-import { requirePayer } from "@/lib/billActions";
+import { deleteBill, requirePayer } from "@/lib/billActions";
 import { editBillInputSchema } from "@/lib/billInput";
 import { getBill, updateBill } from "@/lib/bills";
 
@@ -27,6 +27,14 @@ export async function PUT(request: Request, { params }: Context) {
     const input = await readBody(request, editBillInputSchema);
     if (!(await getBill(id))) throw new ActionError("notFound");
     await updateBill(id, input);
+    return new Response(null, { status: 204 });
+  });
+}
+
+export async function DELETE(request: Request, { params }: Context) {
+  return handle(async () => {
+    const { id } = await params;
+    await deleteBill(id, bearerToken(request));
     return new Response(null, { status: 204 });
   });
 }

@@ -1,4 +1,4 @@
-type Method = "POST" | "PUT";
+type Method = "POST" | "PUT" | "DELETE";
 
 /** Sends a change to the bill. Returns the error code on failure. */
 export async function sendBillChange(

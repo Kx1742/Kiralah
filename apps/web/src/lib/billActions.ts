@@ -187,3 +187,12 @@ export async function resetPerson(
     await bumpVersion(tx, billId);
   });
 }
+
+/** Removes the bill, with its dishes, people and picks, for everyone. Payer only. */
+export async function deleteBill(
+  billId: string,
+  token: string | null,
+): Promise<void> {
+  await requirePayer(billId, token);
+  await getDb().bill.deleteMany({ where: { id: billId } });
+}
