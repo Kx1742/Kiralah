@@ -59,6 +59,38 @@ Custom portions such as "Ali had 2 of the 3 teh tarik" work in the money engine,
 
 **Eval status:** `pnpm eval` scores dishes found, prices right, extra lines, charges and total against hand-checked answers in `evals/`. Only 6 synthetic receipts are there so far, and the eval has not been run against the API yet, because no API key was available while building it. The plan's 20 to 30 real receipts are still needed.
 
+## Installable, with an offline page, but no offline bills
+
+- **Install:** a web app manifest with icons, so Chrome and Safari offer "Add to home screen".
+- **Offline:** a small service worker shows a friendly page in all three languages when a page can't load. It never caches bills, so nobody pays from stale amounts. A banner also says when the phone loses its connection, and that drafts are saved on the phone.
+- **Inside WhatsApp:** the in-app browser often has no clipboard API, so Copy falls back to the older select-and-copy method. Nothing depends on the service worker or on installing.
+
+## Dark mode and large text
+
+- **Settings:** "Aa" on every screen sets text size (Normal or Large) and colours (Match phone, Light or Dark). The choice is saved on the phone and applied by a tiny script before the page paints, so it never flashes.
+- **Large text:** raises the root font size by about 19%. Everything is sized in rem, so the whole layout scales together, and the tests check that no screen scrolls sideways at 360px.
+- **Dark colours:** dark mode swaps the page and card colours, and uses brighter jade and chilli for text, because the light-mode ones are too dark to read on a dark page. The green wall and awning stay the same in both modes. The tests run the accessibility checker on every screen in both modes.
+
+## Deleting bills
+
+The payer can delete a bill (a second tap confirms), and friends' open pages say it was deleted within a few seconds. Every bill is also deleted 30 days after it was made, by a daily Vercel Cron job (`/api/cron/cleanup`, protected by `CRON_SECRET`), along with old rate-limit counts. Until the job runs, an expired bill is already treated as gone.
+
+## Speed on a cheap phone
+
+These were measured locally at 360px under Lighthouse's mobile throttling: slow 4G (150ms latency, 1.6 Mbps) and a CPU slowed four times. Lighthouse itself could not start Chrome in the build environment, so it still needs a run against the deployed site.
+
+| Page          | First paint | Largest paint | Layout shift | Downloaded         |
+| ------------- | ----------- | ------------- | ------------ | ------------------ |
+| Home          | 0.8s        | 0.8s          | 0.001        | 308 KB (188 KB JS) |
+| New bill      | 0.7s        | 2.2s          | 0.000        | 296 KB (181 KB JS) |
+| Bill (friend) | 0.9s        | 0.9s          | 0.014        | 295 KB (178 KB JS) |
+
+All three are within Google's "good" limits: largest paint under 2.5s and layout shift under 0.1. The home page draws everything as inline SVG and CSS, with no image downloads. Zod stays out of the phone's download because the money engine marks itself side-effect free. The bill page's layout shift started at 0.116, because the bill details sat below the part that appears once the phone knows who is looking. Showing the details at the same moment fixed it.
+
+## No loading screen for bill pages
+
+A loading screen makes Next.js start sending the page before it knows whether the bill exists, so a wrong or deleted link would answer `200` instead of `404`. Links from WhatsApp open with a full page load, where the loading screen hardly shows anyway, so the correct status wins.
+
 ## Dishes and people are tables; charges and vouchers are JSON
 
 Friends will tap dishes at the same moment. Separate rows let those writes not collide, which one JSON blob for the whole bill could not. Charges, vouchers and adjustments only change with the payer, so they stay as JSON and are validated with Zod every time they are read.
