@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+.tools/
+.next/
+apps/web/src/generated/
+apps/web/prisma/migrations/
+apps/web/playwright-report/
+apps/web/test-results/

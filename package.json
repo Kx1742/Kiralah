@@ -1,0 +1,41 @@
+{
+  "name": "splitlah",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @splitlah/web dev",
+    "build": "pnpm --filter @splitlah/web build",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @splitlah/web test:e2e",
+    "db:migrate": "pnpm --filter @splitlah/web db:migrate",
+    "db:deploy": "pnpm --filter @splitlah/web db:deploy",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mjs}": [
+      "eslint --max-warnings=0 --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,css}": "prettier --write"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.3",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.1"
+  }
+}
