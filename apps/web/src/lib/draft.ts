@@ -1,3 +1,4 @@
+import type { SavedBill } from "./savedBill";
 import {
   type Bill,
   type Charges,
@@ -37,6 +38,8 @@ export type PaymentDraft = {
   accountNumber: string;
   phone: string;
   qrDataUrl: string;
+  /** When editing: the QR already saved with the bill, kept unless removed. */
+  savedQrUrl?: string;
 };
 
 export type ItemisedDraft = {
@@ -284,5 +287,121 @@ export function equalDraftToBill(
         name: labels.friend(index + 2),
       })),
     ],
+  };
+}
+
+/** 1240 → "12.40": for putting saved amounts back into text boxes. */
+export function senToText(sen: number): string {
+  return `${Math.floor(sen / 100)}.${String(sen % 100).padStart(2, "0")}`;
+}
+
+/** 850 → "8.5", 1000 → "10". */
+export function basisPointsToText(basisPoints: number): string {
+  const whole = Math.floor(basisPoints / 100);
+  const rest = basisPoints % 100;
+  return rest === 0
+    ? `${whole}`
+    : `${whole}.${String(rest).padStart(2, "0").replace(/0$/, "")}`;
+}
+
+function paymentFrom(saved: SavedBill): PaymentDraft {
+  return {
+    bankName: saved.payment.bankName ?? "",
+    accountNumber: saved.payment.accountNumber ?? "",
+    phone: saved.payment.phone ?? "",
+    qrDataUrl: "",
+    ...(saved.payment.hasQr ? { savedQrUrl: `/api/bills/${saved.id}/qr` } : {}),
+  };
+}
+
+function voucherFrom(discount: Discount): VoucherDraft {
+  const base: VoucherDraft = {
+    id: discount.id,
+    kind: discount.kind,
+    valueText: "",
+    minSpendText: "",
+    keptBy: "",
+    itemId: "",
+    promoType: "oneForOne",
+  };
+  if (discount.kind === "itemPromo") {
+    const { promo } = discount;
+    return {
+      ...base,
+      itemId: discount.itemId,
+      promoType: promo.type,
+      valueText:
+        promo.type === "percentOff"
+          ? basisPointsToText(promo.basisPoints)
+          : promo.type === "amountOff"
+            ? senToText(promo.amountSen)
+            : "",
+    };
+  }
+  return {
+    ...base,
+    valueText:
+      discount.kind === "percentOff"
+        ? basisPointsToText(discount.basisPoints)
+        : senToText(discount.amountSen),
+    minSpendText: discount.minSpendSen ? senToText(discount.minSpendSen) : "",
+    keptBy: discount.keptByPersonId ?? "",
+  };
+}
+
+/** Opens a saved bill in the payer's wizard, so editing feels like making it. */
+export function billToItemisedDraft(saved: SavedBill): ItemisedDraft {
+  const { bill } = saved;
+  if (bill.mode !== "itemised") throw new Error("Not an itemised bill");
+  const { charges } = bill;
+  const empty = emptyItemisedDraft();
+  return {
+    ...empty,
+    restaurantName: saved.restaurantName ?? "",
+    items: bill.items.map(({ id, name, quantity, unitPriceSen }) => ({
+      id,
+      name,
+      quantity,
+      priceText: senToText(unitPriceSen),
+    })),
+    serviceOn: charges.serviceChargeBasisPoints > 0,
+    serviceRateText:
+      charges.serviceChargeBasisPoints > 0
+        ? basisPointsToText(charges.serviceChargeBasisPoints)
+        : empty.serviceRateText,
+    taxOn: charges.serviceTaxBasisPoints > 0,
+    taxRateText:
+      charges.serviceTaxBasisPoints > 0
+        ? basisPointsToText(charges.serviceTaxBasisPoints)
+        : empty.taxRateText,
+    pricesIncludeCharges: charges.pricesIncludeCharges,
+    taxOnServiceCharge: charges.taxOnServiceCharge,
+    discountTiming: charges.discountTiming,
+    cashRounding: bill.cashRounding,
+    receiptTotalText:
+      bill.receiptTotalSen === undefined ? "" : senToText(bill.receiptTotalSen),
+    adjustments: bill.adjustments.map(({ id, amountSen }) => ({
+      id,
+      amountSen,
+    })),
+    payerName: saved.payerName,
+    friends: bill.people
+      .filter((person) => person.id !== bill.payerId)
+      .map(({ id, name }) => ({ id, name })),
+    vouchers: bill.discounts.map(voucherFrom),
+    payment: paymentFrom(saved),
+  };
+}
+
+export function billToEqualDraft(saved: SavedBill): EqualDraft {
+  const { bill } = saved;
+  if (bill.mode !== "equal") throw new Error("Not an equal bill");
+  return {
+    restaurantName: saved.restaurantName ?? "",
+    totalText: senToText(bill.totalSen),
+    peopleCount: bill.people.length,
+    payerName: saved.payerName,
+    cashRounding: bill.cashRounding,
+    payment: paymentFrom(saved),
   };
 }

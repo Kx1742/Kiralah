@@ -1,6 +1,8 @@
 import { billSchema, calculateBill } from "@splitlah/core";
 import { describe, expect, it } from "vitest";
 import {
+  basisPointsToText,
+  billToItemisedDraft,
   commitPending,
   emptyEqualDraft,
   emptyItemisedDraft,
@@ -9,6 +11,7 @@ import {
   isItemValid,
   type ItemisedDraft,
   itemisedDraftToBill,
+  senToText,
   type VoucherDraft,
 } from "./draft";
 
@@ -175,5 +178,74 @@ describe("equal draft", () => {
     expect(calculateBill(bill).shares.map((share) => share.amountSen)).toEqual([
       3334, 3333, 3333,
     ]);
+  });
+});
+
+describe("editing a saved bill", () => {
+  it.each([
+    [0, "0.00"],
+    [5, "0.05"],
+    [1240, "12.40"],
+    [123456, "1234.56"],
+  ])("writes %i sen as %s", (sen, text) => {
+    expect(senToText(sen)).toBe(text);
+  });
+
+  it.each([
+    [1000, "10"],
+    [850, "8.5"],
+    [825, "8.25"],
+    [5, "0.05"],
+  ])("writes %i basis points as %s", (basisPoints, text) => {
+    expect(basisPointsToText(basisPoints)).toBe(text);
+  });
+
+  it("opens a saved bill and saves it back unchanged", () => {
+    const original = itemisedDraftToBill(
+      draftWith({
+        restaurantName: "Restoran ABC",
+        items: [
+          { id: "a", name: "Nasi lemak", quantity: 2, priceText: "10.50" },
+          { id: "b", name: "Teh tarik", quantity: 1, priceText: "2.5" },
+        ],
+        taxRateText: "8",
+        friends: [{ id: "f", name: "Bee" }],
+        vouchers: [
+          voucher({
+            kind: "percentOff",
+            valueText: "12.5",
+            minSpendText: "20",
+            keptBy: "f",
+          }),
+          voucher({
+            id: "w",
+            kind: "itemPromo",
+            itemId: "a",
+            promoType: "oneForOne",
+          }),
+        ],
+        adjustments: [{ id: "adj", amountSen: 3 }],
+        receiptTotalText: "30",
+        cashRounding: true,
+      }),
+      labels,
+    );
+    const draft = billToItemisedDraft({
+      id: "0123456789abcdef",
+      version: 0,
+      locale: "en",
+      restaurantName: "Restoran ABC",
+      bill: original,
+      payerName: "Ali",
+      people: [],
+      payment: {
+        bankName: null,
+        accountNumber: null,
+        phone: null,
+        hasQr: true,
+      },
+    });
+    expect(itemisedDraftToBill(draft, labels)).toEqual(original);
+    expect(draft.payment.savedQrUrl).toBe("/api/bills/0123456789abcdef/qr");
   });
 });

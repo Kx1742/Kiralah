@@ -29,7 +29,12 @@ import {
   writeStored,
 } from "@/lib/storage";
 import { useHashStep, useIsClient } from "@/lib/useClient";
-import { type CreateError, requestCreateBill } from "./createBillRequest";
+import {
+  type CreateError,
+  type EditTarget,
+  requestCreateBill,
+  requestUpdateBill,
+} from "./createBillRequest";
 import { PaymentForm } from "./PaymentForm";
 import {
   BottomBar,
@@ -52,7 +57,13 @@ type Patch = (change: Partial<ItemisedDraft>) => void;
 
 export type RememberedPayer = { name: string; payment: PaymentDraft };
 
-function loadDraft(): ItemisedDraft {
+function loadDraft(edit?: EditTarget<ItemisedDraft>): ItemisedDraft {
+  if (edit) {
+    const changes = readStored<Partial<ItemisedDraft>>(
+      STORAGE_KEYS.editDraft(edit.billId),
+    );
+    return { ...edit.initial, ...changes };
+  }
   const empty = emptyItemisedDraft();
   const saved = readStored<Partial<ItemisedDraft>>(STORAGE_KEYS.itemisedDraft);
   if (saved) return { ...empty, ...saved };
@@ -62,10 +73,12 @@ function loadDraft(): ItemisedDraft {
     : empty;
 }
 
-export function BillWizard() {
+export function BillWizard({
+  edit,
+}: { edit?: EditTarget<ItemisedDraft> } = {}) {
   const t = useTranslations("wizard");
   return useIsClient() ? (
-    <Wizard />
+    <Wizard edit={edit} />
   ) : (
     <Screen>
       <p className="text-lg font-bold text-ink-soft">{t("loading")}</p>
@@ -73,11 +86,14 @@ export function BillWizard() {
   );
 }
 
-function Wizard() {
+function Wizard({ edit }: { edit?: EditTarget<ItemisedDraft> }) {
   const t = useTranslations("wizard");
   const locale = useLocale();
   const router = useRouter();
-  const [draft, setDraft] = useState(loadDraft);
+  const [draft, setDraft] = useState(() => loadDraft(edit));
+  const draftKey = edit
+    ? STORAGE_KEYS.editDraft(edit.billId)
+    : STORAGE_KEYS.itemisedDraft;
   const [step, goTo] = useHashStep(STEPS, "items");
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState<CreateError | null>(null);
@@ -85,8 +101,8 @@ function Wizard() {
   const saved = useRef(false);
 
   useEffect(() => {
-    if (!saved.current) writeStored(STORAGE_KEYS.itemisedDraft, draft);
-  }, [draft]);
+    if (!saved.current) writeStored(draftKey, draft);
+  }, [draft, draftKey]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -126,22 +142,25 @@ function Wizard() {
   async function create() {
     setCreating(true);
     setCreateError(null);
-    const outcome = await requestCreateBill({
+    const body = {
       locale,
       restaurantName: draft.restaurantName,
       bill,
       payment: draft.payment,
-    });
+    };
+    const outcome = edit
+      ? await requestUpdateBill(edit, body)
+      : await requestCreateBill(body);
     if ("error" in outcome) {
       setCreateError(outcome.error);
       setCreating(false);
       return;
     }
     saved.current = true;
-    removeStored(STORAGE_KEYS.itemisedDraft);
+    removeStored(draftKey);
     writeStored(STORAGE_KEYS.payer, {
       name: draft.payerName.trim(),
-      payment: draft.payment,
+      payment: { ...draft.payment, savedQrUrl: undefined },
     } satisfies RememberedPayer);
     router.push(`/b/${outcome.id}`);
   }
@@ -199,7 +218,9 @@ function Wizard() {
               {step === "pay"
                 ? creating
                   ? t("creating")
-                  : t("create")
+                  : edit
+                    ? t("save")
+                    : t("create")
                 : t("next")}
             </PrimaryButton>
           </div>

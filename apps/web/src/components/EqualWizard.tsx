@@ -17,7 +17,12 @@ import {
 } from "@/lib/storage";
 import { useHashStep, useIsClient } from "@/lib/useClient";
 import type { RememberedPayer } from "./BillWizard";
-import { type CreateError, requestCreateBill } from "./createBillRequest";
+import {
+  type CreateError,
+  type EditTarget,
+  requestCreateBill,
+  requestUpdateBill,
+} from "./createBillRequest";
 import { PaymentForm } from "./PaymentForm";
 import {
   BottomBar,
@@ -32,7 +37,13 @@ import {
 
 const STEPS = ["split", "pay"] as const;
 
-function loadDraft(): EqualDraft {
+function loadDraft(edit?: EditTarget<EqualDraft>): EqualDraft {
+  if (edit) {
+    const changes = readStored<Partial<EqualDraft>>(
+      STORAGE_KEYS.editDraft(edit.billId),
+    );
+    return { ...edit.initial, ...changes };
+  }
   const empty = emptyEqualDraft();
   const saved = readStored<Partial<EqualDraft>>(STORAGE_KEYS.equalDraft);
   if (saved) return { ...empty, ...saved };
@@ -42,10 +53,10 @@ function loadDraft(): EqualDraft {
     : empty;
 }
 
-export function EqualWizard() {
+export function EqualWizard({ edit }: { edit?: EditTarget<EqualDraft> } = {}) {
   const t = useTranslations("wizard");
   return useIsClient() ? (
-    <Wizard />
+    <Wizard edit={edit} />
   ) : (
     <Screen>
       <p className="text-lg font-bold text-ink-soft">{t("loading")}</p>
@@ -53,12 +64,15 @@ export function EqualWizard() {
   );
 }
 
-function Wizard() {
+function Wizard({ edit }: { edit?: EditTarget<EqualDraft> }) {
   const t = useTranslations("wizard");
   const tEqual = useTranslations("wizard.equal");
   const locale = useLocale();
   const router = useRouter();
-  const [draft, setDraft] = useState(loadDraft);
+  const [draft, setDraft] = useState(() => loadDraft(edit));
+  const draftKey = edit
+    ? STORAGE_KEYS.editDraft(edit.billId)
+    : STORAGE_KEYS.equalDraft;
   const [step, goTo] = useHashStep(STEPS, "split");
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState<CreateError | null>(null);
@@ -66,8 +80,8 @@ function Wizard() {
   const saved = useRef(false);
 
   useEffect(() => {
-    if (!saved.current) writeStored(STORAGE_KEYS.equalDraft, draft);
-  }, [draft]);
+    if (!saved.current) writeStored(draftKey, draft);
+  }, [draft, draftKey]);
 
   const patch = (change: Partial<EqualDraft>) =>
     setDraft((current) => ({ ...current, ...change }));
@@ -89,22 +103,25 @@ function Wizard() {
   async function create() {
     setCreating(true);
     setCreateError(null);
-    const outcome = await requestCreateBill({
+    const body = {
       locale,
       restaurantName: draft.restaurantName,
       bill,
       payment: draft.payment,
-    });
+    };
+    const outcome = edit
+      ? await requestUpdateBill(edit, body)
+      : await requestCreateBill(body);
     if ("error" in outcome) {
       setCreateError(outcome.error);
       setCreating(false);
       return;
     }
     saved.current = true;
-    removeStored(STORAGE_KEYS.equalDraft);
+    removeStored(draftKey);
     writeStored(STORAGE_KEYS.payer, {
       name: draft.payerName.trim(),
-      payment: draft.payment,
+      payment: { ...draft.payment, savedQrUrl: undefined },
     } satisfies RememberedPayer);
     router.push(`/b/${outcome.id}`);
   }
@@ -151,7 +168,9 @@ function Wizard() {
               {step === "pay"
                 ? creating
                   ? t("creating")
-                  : t("create")
+                  : edit
+                    ? t("save")
+                    : t("create")
                 : t("next")}
             </PrimaryButton>
           </div>
@@ -169,20 +188,22 @@ function Wizard() {
               value={draft.totalText}
               onChange={(event) => patch({ totalText: event.target.value })}
             />
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-base font-extrabold text-ink">
-                {tEqual("people")}
-              </p>
-              <Stepper
-                value={draft.peopleCount}
-                min={2}
-                max={50}
-                onChange={(peopleCount) => patch({ peopleCount })}
-                label={tEqual("people")}
-                decreaseLabel={tEqual("fewer")}
-                increaseLabel={tEqual("more")}
-              />
-            </div>
+            {!edit && (
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-base font-extrabold text-ink">
+                  {tEqual("people")}
+                </p>
+                <Stepper
+                  value={draft.peopleCount}
+                  min={2}
+                  max={50}
+                  onChange={(peopleCount) => patch({ peopleCount })}
+                  label={tEqual("people")}
+                  decreaseLabel={tEqual("fewer")}
+                  increaseLabel={tEqual("more")}
+                />
+              </div>
+            )}
             <Field
               label={t("people.yourName")}
               placeholder={t("people.yourNamePlaceholder")}

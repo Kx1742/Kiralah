@@ -29,7 +29,7 @@ export function PaymentForm({
 }) {
   const t = useTranslations("wizard.pay");
   const [method, setMethod] = useState<Method>(() => {
-    if (payment.qrDataUrl) return "qr";
+    if (payment.qrDataUrl || payment.savedQrUrl) return "qr";
     if (payment.accountNumber) return "bank";
     if (payment.phone) return "phone";
     return "qr";
@@ -61,17 +61,19 @@ export function PaymentForm({
 
       {method === "qr" && (
         <div className="flex flex-col items-center gap-2">
-          {payment.qrDataUrl ? (
+          {payment.qrDataUrl || payment.savedQrUrl ? (
             <>
               {/* A local preview of the phone's own photo: next/image cannot optimise a data URL. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={payment.qrDataUrl}
+                src={payment.qrDataUrl || payment.savedQrUrl}
                 alt={t("qrPreview")}
                 className="size-48 rounded-xl bg-white object-contain"
               />
               <TextButton
-                onClick={() => onChange({ ...payment, qrDataUrl: "" })}
+                onClick={() =>
+                  onChange({ ...payment, qrDataUrl: "", savedQrUrl: undefined })
+                }
               >
                 {t("removeQr")}
               </TextButton>
