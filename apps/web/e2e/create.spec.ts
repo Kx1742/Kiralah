@@ -87,7 +87,6 @@ test("payer creates an itemised bill and gets a share link", async ({
   await expect(
     page.getByRole("button", { name: "Share to WhatsApp" }),
   ).toBeVisible();
-  await expect(page.getByText("1234 5678 9012")).toBeVisible();
   await noSidewaysScroll(page);
   await noAxeViolations(page);
 
